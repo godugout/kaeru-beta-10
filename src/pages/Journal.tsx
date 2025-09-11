@@ -1,0 +1,130 @@
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ChevronLeft, ArrowRight } from "lucide-react";
+import KaeruLogo from "@/components/hero/KaeruLogo";
+import { JournalArticleCard } from "@/components/journal/JournalArticleCard";
+import { journalArticles } from "@/data/journalArticles";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const Journal = () => {
+  const [activeTab, setActiveTab] = useState("all");
+  
+  // Filter articles based on active tab
+  const filteredArticles = activeTab === "all" 
+    ? journalArticles 
+    : journalArticles.filter(article => article.category.toLowerCase() === activeTab.toLowerCase());
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Header */}
+      <header className="px-6 py-4 flex justify-between items-center">
+        <Link to="/" className="text-gold hover:text-gold/80 transition-colors flex items-center gap-2">
+          <ChevronLeft size={18} />
+          <span>Return home</span>
+        </Link>
+        <div className="w-20 h-20 flex items-center justify-center">
+          <KaeruLogo />
+        </div>
+        <div className="w-24"></div> {/* Empty space for balance */}
+      </header>
+      
+      <main className="max-w-7xl mx-auto px-4 py-12">
+        {/* Journal Introduction */}
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h2 className="text-sm tracking-widest text-gold mb-4">DISCIPLINE JOURNAL</h2>
+          <h3 className="text-3xl md:text-5xl font-serif text-white mb-8">The Cycle of Return</h3>
+          <p className="text-white/70 mb-6 leading-relaxed">
+            In Japanese philosophy, the concept of <span className="text-gold italic">kaeru</span> (帰る) means "to return" or "to come back." 
+            Our journal explores this eternal cycle of return—to origins, to balance, to self—through the lens of ancient wisdom 
+            and modern science.
+          </p>
+          <p className="text-white/70 leading-relaxed">
+            Each article offers wisdom, practices, and reflections to guide you on your path of return.
+          </p>
+        </div>
+
+        {/* Featured Banner */}
+        <div className="relative w-full overflow-hidden h-80 mb-16 rounded-sm">
+          <img 
+            src="/lovable-uploads/b6ab7a27-68af-4c40-a8f6-2877f3f77b89.png" 
+            alt="Frog and lotus artwork" 
+            className="w-full h-full object-cover" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-black/80"></div>
+          <div className="absolute inset-0 flex items-center">
+            <div className="container mx-auto px-4">
+              <div className="max-w-xl">
+                <h3 className="text-3xl font-serif text-white mb-4">
+                  "When you reach the top of the mountain, keep climbing."
+                </h3>
+                <p className="text-gold italic">— Zen Proverb</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Journal Categories */}
+        <div className="mb-12">
+          <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
+            <div className="flex justify-center">
+              <TabsList className="bg-black/50 border border-white/10">
+                <TabsTrigger value="all" className="text-sm">All</TabsTrigger>
+                <TabsTrigger value="harmony" className="text-sm">Harmony</TabsTrigger>
+                <TabsTrigger value="clarity" className="text-sm">Clarity</TabsTrigger>
+                <TabsTrigger value="strength" className="text-sm">Strength</TabsTrigger>
+                <TabsTrigger value="roots" className="text-sm">Roots</TabsTrigger>
+              </TabsList>
+            </div>
+          </Tabs>
+        </div>
+
+        {/* Journal Articles Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {filteredArticles.map((article, index) => (
+            <motion.div
+              key={article.slug}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <JournalArticleCard article={article} />
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* Newsletter Signup */}
+        <div className="bg-black/30 border border-gold/20 p-8 md:p-12 rounded-sm text-center max-w-3xl mx-auto">
+          <h4 className="font-serif text-2xl md:text-3xl text-white mb-4">Join the Journey of Return</h4>
+          <p className="text-white/70 mb-6">
+            Receive monthly wisdom and practices from the Discipline Journal, delivered directly to your inbox.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="bg-black/50 border border-white/20 px-4 py-2 rounded-sm flex-grow focus:outline-none focus:ring-1 focus:ring-gold"
+            />
+            <Button className="bg-gold hover:bg-gold/90 text-black">
+              Subscribe
+            </Button>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer Quote */}
+      <div className="bg-black/50 py-16 mt-16">
+        <div className="max-w-3xl mx-auto text-center px-4">
+          <p className="text-lg text-white/80 italic mb-4">
+            "The journey of return is not a circle, but a spiral—each time we come back, we arrive at a deeper understanding."
+          </p>
+          <p className="text-gold">— Kaeru Wisdom</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Journal;

@@ -1,0 +1,298 @@
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { refinedIngredients } from "@/data/refinedIngredients";
+import EnhancedIngredientCard from "@/components/product/EnhancedIngredientCard";
+import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
+import { Search, Filter, Sparkles, Volume2, VolumeX, Zap, Flower2, Leaf, TreePine, Snowflake, Sun } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import SeasonalIngredientTheme from "@/components/sacred-ingredients/SeasonalIngredientTheme";
+import IngredientConnections from "@/components/sacred-ingredients/IngredientConnections";
+import SoundSystem from "@/components/sacred-ingredients/SoundSystem";
+import ParallaxBackground from "@/components/sacred-ingredients/ParallaxBackground";
+
+interface RefinedIngredientsSectionProps {
+  productName?: string;
+}
+
+const benefitFilters = [
+  { id: 'all', label: 'All', icon: '🌿' },
+  { id: 'recovery', label: 'Recovery', icon: '💪' },
+  { id: 'calm', label: 'Calm', icon: '🧘' },
+  { id: 'energy', label: 'Energy', icon: '⚡' },
+  { id: 'sleep', label: 'Sleep', icon: '🌙' }
+];
+
+const seasonOptions = [
+  { id: 'spring', label: 'Spring', icon: Leaf, color: '#98FB98' },
+  { id: 'summer', label: 'Summer', icon: Sun, color: '#FFD700' },
+  { id: 'autumn', label: 'Autumn', icon: TreePine, color: '#FF6347' },
+  { id: 'winter', label: 'Winter', icon: Snowflake, color: '#B0C4DE' }
+];
+
+const RefinedIngredientsSection = ({ productName }: RefinedIngredientsSectionProps) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [filteredIngredients, setFilteredIngredients] = useState(refinedIngredients);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(-1);
+  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [highlightedProducts, setHighlightedProducts] = useState<string[]>([]);
+  const [showConnections, setShowConnections] = useState(false);
+  const [currentSeason, setCurrentSeason] = useState<'spring' | 'summer' | 'autumn' | 'winter'>('spring');
+  const [showSynergyVisualization, setShowSynergyVisualization] = useState(false);
+
+  // Keyboard navigation
+  const { currentIndex, isNavigating } = useKeyboardNavigation({
+    totalItems: filteredIngredients.length,
+    onItemSelect: (index) => setSelectedCardIndex(index),
+    onItemActivate: (index) => {
+      console.log('Activating card:', index);
+    },
+    isActive: true
+  });
+
+  // Handle product highlighting from cards
+  const handleProductHighlight = (products: string[]) => {
+    setHighlightedProducts(products);
+    setShowConnections(true);
+    
+    setTimeout(() => {
+      setShowConnections(false);
+      setHighlightedProducts([]);
+    }, 5000);
+  };
+
+  // Filter ingredients based on product name, search term, and benefit filter
+  useEffect(() => {
+    let filtered = productName 
+      ? refinedIngredients.filter(ingredient => 
+          ingredient.productAssociations.some(product => 
+            product.toLowerCase().includes(productName.toLowerCase())
+          )
+        )
+      : refinedIngredients;
+
+    if (searchTerm) {
+      filtered = filtered.filter(ingredient =>
+        ingredient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        ingredient.subtitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        ingredient.cultural.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        ingredient.healing.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        ingredient.productAssociations.some(product => 
+          product.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    }
+
+    if (activeFilter !== 'all') {
+      const benefitKeywords = {
+        recovery: ['recovery', 'healing', 'restore', 'repair'],
+        calm: ['calm', 'peace', 'meditation', 'stillness', 'boundary'],
+        energy: ['energy', 'fire', 'vitality', 'awakening', 'warm'],
+        sleep: ['sleep', 'dream', 'night', 'rest', 'moon']
+      };
+
+      const keywords = benefitKeywords[activeFilter as keyof typeof benefitKeywords] || [];
+      filtered = filtered.filter(ingredient =>
+        keywords.some(keyword =>
+          ingredient.healing.toLowerCase().includes(keyword) ||
+          ingredient.subtitle.toLowerCase().includes(keyword) ||
+          ingredient.cultural.toLowerCase().includes(keyword)
+        )
+      );
+    }
+
+    setFilteredIngredients(filtered);
+    setIsSearchActive(searchTerm.length > 0 || activeFilter !== 'all');
+  }, [searchTerm, activeFilter, productName]);
+
+  return (
+    <ParallaxBackground>
+      <SeasonalIngredientTheme season={currentSeason}>
+        <section className="py-20 relative overflow-hidden" role="region" aria-labelledby="ingredients-title">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-moss-green/5 to-transparent" />
+          
+          <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <Flower2 className="w-5 h-5 text-gold" />
+            <h2 id="ingredients-title" className="text-sm tracking-widest text-gold">THE SACRED INGREDIENTS</h2>
+            <Flower2 className="w-5 h-5 text-gold" />
+          </div>
+          
+          <h3 className="text-4xl md:text-6xl font-serif text-white mb-8">
+            {productName 
+              ? "Key Ingredients & Their Stories" 
+              : "Five Elements of Ancient Wisdom"
+            }
+          </h3>
+          
+          <p className="text-white/70 max-w-4xl mx-auto text-lg leading-relaxed mb-6">
+            Each ingredient carries millennia of healing tradition and modern scientific validation, 
+            carefully selected to honor both nature's intelligence and therapeutic efficacy.
+          </p>
+        </motion.div>
+
+        <motion.div 
+          className="flex flex-col md:flex-row gap-4 justify-center items-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gold/60" />
+            <Input
+              type="text"
+              placeholder="Find ingredients in your products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 w-80 bg-kaeru-black/50 border-gold/30 text-white placeholder:text-white/50 focus:border-gold"
+              aria-label="Search ingredients"
+            />
+          </div>
+
+          <div className="flex gap-2 items-center">
+            <Filter className="w-4 h-4 text-gold/60 mr-2" />
+            {benefitFilters.map((filter) => (
+              <Button
+                key={filter.id}
+                variant={activeFilter === filter.id ? "default" : "outline"}
+                size="sm"
+                className={`text-xs ${
+                  activeFilter === filter.id
+                    ? 'bg-gold text-kaeru-black hover:bg-gold/90'
+                    : 'border-gold/30 text-gold/70 hover:border-gold/50 bg-transparent'
+                }`}
+                onClick={() => setActiveFilter(filter.id)}
+                aria-pressed={activeFilter === filter.id}
+              >
+                <span className="mr-1" aria-hidden="true">{filter.icon}</span>
+                {filter.label}
+              </Button>
+            ))}
+          </div>
+
+          <div className="flex gap-2 items-center">
+            <span className="text-gold/60 text-xs mr-2">Season:</span>
+            {seasonOptions.map((season) => {
+              const IconComponent = season.icon;
+              return (
+                <Button
+                  key={season.id}
+                  variant={currentSeason === season.id ? "default" : "outline"}
+                  size="sm"
+                  className={`text-xs ${
+                    currentSeason === season.id
+                      ? 'bg-gold text-kaeru-black hover:bg-gold/90'
+                      : 'border-gold/30 text-gold/70 hover:border-gold/50 bg-transparent'
+                  }`}
+                  onClick={() => setCurrentSeason(season.id as typeof currentSeason)}
+                >
+                  <IconComponent className="w-3 h-3 mr-1" />
+                  {season.label}
+                </Button>
+              );
+            })}
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            className={`border-gold/30 text-gold/70 hover:border-gold/50 bg-transparent ${
+              showSynergyVisualization ? 'border-gold text-gold bg-gold/10' : ''
+            }`}
+            onClick={() => setShowSynergyVisualization(!showSynergyVisualization)}
+            title="Show ingredient synergies"
+          >
+            <Sparkles className="w-4 h-4" />
+          </Button>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 mb-16 relative" role="grid">
+          {/* Ingredient Connection Visualization */}
+          <IngredientConnections
+            ingredients={filteredIngredients}
+            highlightedProducts={highlightedProducts}
+            showConnections={showConnections || showSynergyVisualization}
+          />
+          
+          {filteredIngredients.map((ingredient, index) => (
+            <div key={ingredient.id} role="gridcell">
+              <EnhancedIngredientCard 
+                ingredient={ingredient} 
+                delay={index}
+                isSearchActive={isSearchActive}
+                searchTerm={searchTerm}
+                isSelected={isNavigating && index === currentIndex}
+                onFocus={() => setSelectedCardIndex(index)}
+                soundEnabled={soundEnabled}
+                onProductHighlight={handleProductHighlight}
+              />
+            </div>
+          ))}
+        </div>
+
+        {filteredIngredients.length === 0 && (
+          <motion.div 
+            className="text-center py-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <p className="text-white/60 text-lg">No ingredients match your filters.</p>
+            <Button
+              variant="outline"
+              className="mt-4 border-gold/30 text-gold hover:border-gold/50"
+              onClick={() => {
+                setSearchTerm("");
+                setActiveFilter("all");
+              }}
+            >
+              Clear Filters
+            </Button>
+          </motion.div>
+        )}
+
+        <motion.div 
+          className="text-center mt-8 text-xs text-white/40"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+        >
+          <p>Use arrow keys to navigate • Enter/Space to flip cards • Tab through content • Click synergy button to see connections</p>
+        </motion.div>
+
+        {/* The Five Transformations Philosophy */}
+        <motion.div 
+          className="mt-20 text-center"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2, duration: 0.8 }}
+        >
+          <h4 className="text-2xl font-serif text-gold mb-6">The Five Transformations</h4>
+          <p className="text-white/70 max-w-3xl mx-auto text-lg leading-relaxed">
+            Following the <em>Godai</em> (Five Elements), our formulations balance Earth's stability, 
+            Water's flow, Fire's energy, Wind's movement, and Void's infinite potential. 
+            Each ingredient awakens through specific ritual, creating harmony that transcends individual properties.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Sound System */}
+      <SoundSystem
+        enabled={soundEnabled}
+        onToggle={() => setSoundEnabled(!soundEnabled)}
+        ambientTrack="temple"
+      />
+    </section>
+      </SeasonalIngredientTheme>
+    </ParallaxBackground>
+  );
+};
+
+export default RefinedIngredientsSection;

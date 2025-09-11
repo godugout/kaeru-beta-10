@@ -1,0 +1,398 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  :root {
+    /* MASTER COLOR PALETTE - KAERU DESIGN SYSTEM */
+    --kaeru-black: 240 11% 4%; /* #0A0A0B */
+    --kaeru-gold: 43 84% 59%; /* #D4AF37 */
+    --moss-green: 82 24% 29%; /* #4A5D3A */
+    --fog-gray: 40 17% 89%; /* #E8E6E1 */
+    --jade-accent: 160 100% 33%; /* #00A86B */
+    --glacier-blue: 204 33% 85%; /* #CDDDE8 */
+    --shadow-color: 240 11% 4% / 0.4; /* rgba(10, 10, 11, 0.4) */
+
+    /* SPACING SYSTEM - 8px GRID */
+    --space-xs: 0.5rem;   /* 8px */
+    --space-sm: 1rem;     /* 16px */
+    --space-md: 1.5rem;   /* 24px */
+    --space-lg: 2rem;     /* 32px */
+    --space-xl: 3rem;     /* 48px */
+    --space-2xl: 4rem;    /* 64px */
+    --space-3xl: 6rem;    /* 96px */
+
+    /* TYPOGRAPHY SCALE - GOLDEN RATIO */
+    --text-xs: 0.75rem;    /* 12px */
+    --text-sm: 0.875rem;   /* 14px */
+    --text-base: 1rem;     /* 16px */
+    --text-lg: 1.125rem;   /* 18px */
+    --text-xl: 1.25rem;    /* 20px */
+    --text-2xl: 1.618rem;  /* 26px */
+    --text-3xl: 2.618rem;  /* 42px */
+    --text-4xl: 4.236rem;  /* 68px */
+
+    /* ANIMATION TIMING - BREATHING RHYTHM */
+    --ease-kaeru: cubic-bezier(0.4, 0.0, 0.2, 1);
+    --duration-fast: 200ms;
+    --duration-base: 400ms;
+    --duration-slow: 800ms;
+    --duration-breath: 2000ms;
+
+    /* Z-INDEX LAYERS */
+    --z-base: 1;
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-modal: 300;
+    --z-toast: 400;
+
+    /* SHADCN COLOR SYSTEM (mapped to KAERU palette) */
+    --background: var(--kaeru-black);
+    --foreground: var(--fog-gray);
+
+    --card: var(--kaeru-black);
+    --card-foreground: var(--fog-gray);
+
+    --popover: var(--kaeru-black);
+    --popover-foreground: var(--fog-gray);
+
+    --primary: var(--kaeru-gold);
+    --primary-foreground: var(--kaeru-black);
+
+    --secondary: var(--moss-green);
+    --secondary-foreground: var(--fog-gray);
+
+    --muted: var(--moss-green);
+    --muted-foreground: var(--fog-gray);
+
+    --accent: var(--jade-accent);
+    --accent-foreground: var(--kaeru-black);
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--fog-gray);
+
+    --border: var(--moss-green);
+    --input: var(--moss-green);
+    --ring: var(--kaeru-gold);
+
+    --radius: 0.25rem; /* 4px default, 0 or 12px for specific cases */
+
+    /* SIDEBAR COLORS */
+    --sidebar-background: var(--kaeru-black);
+    --sidebar-foreground: var(--fog-gray);
+    --sidebar-primary: var(--kaeru-gold);
+    --sidebar-primary-foreground: var(--kaeru-black);
+    --sidebar-accent: var(--moss-green);
+    --sidebar-accent-foreground: var(--fog-gray);
+    --sidebar-border: var(--moss-green);
+    --sidebar-ring: var(--kaeru-gold);
+  }
+
+  /* KAERU uses dark theme by default - same palette for consistency */
+  .dark {
+    --background: var(--kaeru-black);
+    --foreground: var(--fog-gray);
+    --card: var(--kaeru-black);
+    --card-foreground: var(--fog-gray);
+    --popover: var(--kaeru-black);
+    --popover-foreground: var(--fog-gray);
+    --primary: var(--kaeru-gold);
+    --primary-foreground: var(--kaeru-black);
+    --secondary: var(--moss-green);
+    --secondary-foreground: var(--fog-gray);
+    --muted: var(--moss-green);
+    --muted-foreground: var(--fog-gray);
+    --accent: var(--jade-accent);
+    --accent-foreground: var(--kaeru-black);
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--fog-gray);
+    --border: var(--moss-green);
+    --input: var(--moss-green);
+    --ring: var(--kaeru-gold);
+    --sidebar-background: var(--kaeru-black);
+    --sidebar-foreground: var(--fog-gray);
+    --sidebar-primary: var(--kaeru-gold);
+    --sidebar-primary-foreground: var(--kaeru-black);
+    --sidebar-accent: var(--moss-green);
+    --sidebar-accent-foreground: var(--fog-gray);
+    --sidebar-border: var(--moss-green);
+    --sidebar-ring: var(--kaeru-gold);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* KAERU DESIGN SYSTEM COMPONENTS */
+  
+  /* Typography Classes */
+  .text-kaeru-h1 {
+    @apply text-[var(--text-4xl)] font-serif font-bold leading-tight tracking-tight;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .text-kaeru-h2 {
+    @apply text-[var(--text-3xl)] font-serif font-medium leading-tight;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .text-kaeru-h3 {
+    @apply text-[var(--text-2xl)] font-medium leading-snug;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .text-kaeru-body {
+    @apply text-[var(--text-base)] leading-relaxed;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  
+  .text-kaeru-small {
+    @apply text-[var(--text-sm)] opacity-80;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Spacing Classes */
+  .space-kaeru-xs { @apply p-[var(--space-xs)]; }
+  .space-kaeru-sm { @apply p-[var(--space-sm)]; }
+  .space-kaeru-md { @apply p-[var(--space-md)]; }
+  .space-kaeru-lg { @apply p-[var(--space-lg)]; }
+  .space-kaeru-xl { @apply p-[var(--space-xl)]; }
+  .space-kaeru-2xl { @apply p-[var(--space-2xl)]; }
+  .space-kaeru-3xl { @apply p-[var(--space-3xl)]; }
+
+  /* Section Container */
+  .section-container {
+    @apply max-w-[1440px] mx-auto;
+    padding: var(--space-3xl) var(--space-md);
+  }
+  
+  @media (max-width: 640px) {
+    .section-container {
+      padding: var(--space-xl) var(--space-sm);
+    }
+  }
+
+  /* Animation Classes */
+  .kaeru-ease {
+    transition-timing-function: var(--ease-kaeru);
+  }
+  
+  .kaeru-duration-fast {
+    transition-duration: var(--duration-fast);
+  }
+  
+  .kaeru-duration-base {
+    transition-duration: var(--duration-base);
+  }
+  
+  .kaeru-duration-slow {
+    transition-duration: var(--duration-slow);
+  }
+
+  /* Breathing Animation */
+  .breathing {
+    animation: breathe var(--duration-breath) ease-in-out infinite;
+  }
+  
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* 3D Flip Card Classes */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  /* Scrollbar Styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-track-transparent {
+    scrollbar-color: transparent transparent;
+  }
+  
+  .scrollbar-thumb-gold\/30 {
+    scrollbar-color: hsla(var(--kaeru-gold), 0.3) transparent;
+  }
+
+  /* Webkit Scrollbar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsla(var(--kaeru-gold), 0.3);
+    border-radius: 2px;
+  }
+
+  /* Ingredient Card Animations */
+  .ingredient-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .ingredient-card:hover {
+    cursor: pointer;
+  }
+
+  /* Custom Cursor for Ingredient Cards */
+  .ingredient-card:hover {
+    cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext y='24' font-size='20'%3E🐸%3C/text%3E%3C/svg%3E"), pointer;
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .ingredient-card,
+    .card-inner,
+    .breathing,
+    .particle-animation {
+      animation: none !important;
+      transition: none !important;
+    }
+    
+    .card-inner {
+      transform: none !important;
+    }
+  }
+
+  /* High Contrast Mode Support */
+  @media (prefers-contrast: high) {
+    .ingredient-card {
+      border: 2px solid;
+      background: black;
+      color: white;
+    }
+    
+    .tab-content {
+      background: black;
+      color: white;
+    }
+  }
+
+  /* Focus Styles for Accessibility */
+  .ingredient-card:focus-visible,
+  .info-tabs button:focus-visible {
+    outline: 2px solid hsl(var(--kaeru-gold));
+    outline-offset: 2px;
+  }
+
+  /* Touch Target Sizing */
+  @media (max-width: 768px) {
+    .info-tabs button {
+      min-width: 44px;
+      min-height: 44px;
+      touch-action: manipulation;
+    }
+  }
+
+  /* Luxury Effects */
+  .grain-texture::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  
+  .gold-glow {
+    box-shadow: 0 0 15px hsl(var(--kaeru-gold) / 0.15);
+  }
+  
+  .gold-border-glow {
+    @apply border border-primary/20;
+    transition: all var(--duration-base) var(--ease-kaeru);
+  }
+  
+  .gold-border-glow:hover {
+    @apply border-primary/40;
+    box-shadow: 0 0 15px hsl(var(--kaeru-gold) / 0.15);
+  }
+
+  /* Sacred Ingredients Enhancements */
+  .ingredient-synergy-line {
+    stroke-dasharray: 5, 5;
+    animation: synergy-flow 3s linear infinite;
+  }
+
+  @keyframes synergy-flow {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 20; }
+  }
+
+  .seasonal-transition {
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Enhanced Particle Effects */
+  .particle-trail {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .particle-trail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    animation: particle-sweep 3s ease-in-out infinite;
+  }
+
+  @keyframes particle-sweep {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* Parallax Performance Optimization */
+  .parallax-layer {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Z-Index Utilities */
+  .z-base { z-index: var(--z-base); }
+  .z-dropdown { z-index: var(--z-dropdown); }
+  .z-sticky { z-index: var(--z-sticky); }
+  .z-modal { z-index: var(--z-modal); }
+  .z-toast { z-index: var(--z-toast); }
+}
+
