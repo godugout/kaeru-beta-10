@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import WaterRipple from "@/components/animations/WaterRipple";
+import CartDrawer from "@/components/shop/cart/CartDrawer";
 
 interface EnhancedNavigationProps {
   scrollPosition?: number;
@@ -20,14 +21,19 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
     setIsOpen(!isOpen);
   };
 
-  // Define nav items based on brand architecture with priority categories
+  // Define nav items based on brand architecture with Shop first
   const navItems = [
+    { name: "SHOP", href: "/shop", id: "shop", priority: "primary" },
     { name: "THE WAY", href: "/the-way", id: "the-way", priority: "secondary" },
     { name: "RITUALS", href: "/rituals", id: "rituals", priority: "primary" },
-    { name: "SHOP", href: "/shop", id: "shop", priority: "primary" },
     { name: "LIBRARY", href: "/library", id: "library", priority: "secondary" },
     { name: "ORIGINS", href: "/origins", id: "origins", priority: "secondary" }
   ];
+  
+  const isActive = (path: string) => {
+    if (path === "/" && isHomePage) return true;
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+  };
 
   return (
     <div className={`fixed top-0 left-0 w-full z-50 px-6 py-6 transition-all duration-500 ${
@@ -51,7 +57,7 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
         {/* Desktop Navigation with improved visual hierarchy */}
         <WaterRipple className="hidden md:flex space-x-8">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.href;
+            const active = isActive(item.href);
             const isPrimary = item.priority === "primary";
 
             return (
@@ -61,7 +67,7 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
                 className={`relative text-sm tracking-widest transition-colors duration-300 ${
                   isPrimary ? 'font-medium' : 'font-normal'
                 } ${
-                  isActive ? 'text-gold' : 'text-white hover:text-gold'
+                  active ? 'text-gold' : 'text-white hover:text-gold'
                 } group`}
               >
                 <span>{item.name}</span>
@@ -71,8 +77,8 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
                   className={`absolute left-0 bottom-0 h-px bg-gold ${isPrimary ? 'w-full' : 'w-3/4'}`}
                   initial={{ scaleX: 0, originX: 0 }}
                   animate={{ 
-                    scaleX: isActive ? 1 : 0,
-                    opacity: isActive ? 1 : 0,
+                    scaleX: active ? 1 : 0,
+                    opacity: active ? 1 : 0,
                   }}
                   transition={{ 
                     duration: 0.4, 
@@ -81,7 +87,7 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
                 />
                 
                 {/* Hover animation (only when not active) */}
-                {!isActive && (
+                {!active && (
                   <motion.div 
                     className={`absolute left-0 bottom-0 h-px bg-gold/60 ${isPrimary ? 'w-full' : 'w-3/4'}`}
                     initial={{ scaleX: 0, originX: 0 }}
@@ -96,6 +102,11 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
             );
           })}
         </WaterRipple>
+
+        {/* Desktop Cart Drawer */}
+        <div className="hidden md:flex items-center">
+          <CartDrawer />
+        </div>
 
         {/* Mobile Menu Button with water ripple effect */}
         <WaterRipple className="md:hidden">
@@ -121,7 +132,7 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
           >
             <div className="flex flex-col items-center space-y-10 p-8">
               {navItems.map((item) => {
-                const isActive = location.pathname === item.href;
+                const active = isActive(item.href);
                 
                 return (
                   <Link
@@ -130,12 +141,12 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
                     className="relative tracking-widest text-xl transition-colors duration-300 group"
                     onClick={() => setIsOpen(false)}
                   >
-                    <span className={isActive ? 'text-gold' : 'text-white/80 group-hover:text-gold'}>
+                    <span className={active ? 'text-gold' : 'text-white/80 group-hover:text-gold'}>
                       {item.name}
                     </span>
                     
                     {/* Gold ink underline animation */}
-                    {isActive && (
+                    {active && (
                       <motion.div 
                         className="absolute left-1/2 bottom-0 h-px bg-gold"
                         initial={{ width: 0 }}
@@ -146,6 +157,11 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
                   </Link>
                 );
               })}
+              
+              {/* Mobile Cart */}
+              <div className="pt-4">
+                <CartDrawer />
+              </div>
             </div>
           </motion.div>
         )}

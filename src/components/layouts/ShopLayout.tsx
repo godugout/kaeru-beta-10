@@ -1,9 +1,8 @@
 
 import { ReactNode, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Navigation from "@/components/navigation/Navigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
-import CartDrawer from "@/components/shop/cart/CartDrawer";
 import { WishlistDrawer } from "@/components/shop/WishlistDrawer";
 import { SeasonalTexture } from "@/components/ui/japanese/Textures";
 import { japaneseDesignSystem } from "@/theme/japaneseTheme";
@@ -30,12 +29,11 @@ const ShopLayout = ({ children }: ShopLayoutProps) => {
 
   return (
     <div className="bg-black min-h-screen">
-      <Navigation scrollPosition={scrollPosition} />
+      <EnhancedNavigation scrollPosition={scrollPosition} />
       
-      {/* Cart and Wishlist UI - Prominently positioned */}
-      <div className="fixed top-4 right-4 z-40 flex space-x-2">
+      {/* Wishlist UI - Positioned in top right */}
+      <div className="fixed top-4 right-4 z-40">
         <WishlistDrawer />
-        <CartDrawer />
       </div>
       
       <div className="pt-24 pb-0">

@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Navigation from "@/components/navigation/Navigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";

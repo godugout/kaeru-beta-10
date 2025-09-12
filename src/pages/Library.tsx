@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import Navigation from "@/components/navigation/Navigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
 import { LibrarySidebar } from "@/components/library/LibrarySidebar";
 import { LibraryContent } from "@/components/library/LibraryContent";
@@ -25,7 +25,7 @@ const Library = () => {
   
   return (
     <div className="bg-black min-h-screen">
-      <Navigation scrollPosition={scrollPosition} />
+      <EnhancedNavigation scrollPosition={scrollPosition} />
       
       <div className="pt-24 pb-16">
         <SeasonalTexture season={currentSeason} className="relative">

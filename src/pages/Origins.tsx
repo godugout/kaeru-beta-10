@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import Navigation from "@/components/navigation/Navigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
 import { MaContainer, ScrollSection } from "@/components/ui/japanese/Layout";
 import { JapaneseHeading } from "@/components/ui/japanese/Typography";
@@ -16,7 +16,7 @@ const Origins = () => {
   
   return (
     <div className="bg-black min-h-screen">
-      <Navigation scrollPosition={scrollPosition} />
+      <EnhancedNavigation scrollPosition={scrollPosition} />
       
       <div className="pt-24 pb-16">
         <SeasonalTexture season={currentSeason} className="relative">

@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Navigation from "@/components/navigation/Navigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
 import JapaneseArtInspiredElements from "@/components/sections/JapaneseArtInspiredElements";
 import FoundersJourney from "@/components/sections/FoundersJourney";
@@ -26,7 +26,7 @@ const JapaneseArtElements = () => {
   return (
     <div className="bg-black min-h-screen">
       {/* Navigation */}
-      <Navigation scrollPosition={scrollPosition} />
+      <EnhancedNavigation scrollPosition={scrollPosition} />
       
       <motion.div
         className="transition-opacity duration-1000"

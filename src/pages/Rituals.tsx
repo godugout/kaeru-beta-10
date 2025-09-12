@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import Navigation from "@/components/navigation/Navigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
 import ProductShowcase from "@/components/sections/ProductShowcase";
 import { productData } from "@/data/productData";
@@ -35,7 +35,7 @@ const Rituals = () => {
   return (
     <div className="bg-black min-h-screen">
       {/* Navigation */}
-      <Navigation scrollPosition={scrollPosition} />
+      <EnhancedNavigation scrollPosition={scrollPosition} />
       
       {/* Easter Egg Component */}
       <FrogReturnsEasterEgg />

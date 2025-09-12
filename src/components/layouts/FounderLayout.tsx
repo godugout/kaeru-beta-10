@@ -1,7 +1,7 @@
 
 import { useEffect, useState, ReactNode } from "react";
 import { motion } from "framer-motion";
-import Navigation from "@/components/navigation/Navigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
 import { useOptimizedAnimation } from "@/hooks/useOptimizedAnimation";
 import FounderBackground from "@/components/founder/FounderBackground";
@@ -39,7 +39,7 @@ const FounderLayout = ({ children }: FounderLayoutProps) => {
   return (
     <FounderBackground>
       {/* Navigation */}
-      <Navigation scrollPosition={scrollPosition} />
+      <EnhancedNavigation scrollPosition={scrollPosition} />
       
       <motion.div
         initial={{ opacity: 0 }}

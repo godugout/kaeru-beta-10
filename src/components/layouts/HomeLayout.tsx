@@ -1,6 +1,6 @@
 
 import React, { ReactNode } from 'react';
-import Navigation from "@/components/navigation/Navigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
 import KaeruLogo from "@/components/hero/KaeruLogo";
 import FrogReturns from "@/components/special/FrogReturns";
@@ -40,7 +40,7 @@ const HomeLayout = ({
       {/* Main Content */}
       <div className={`transition-opacity duration-1000 ${contentVisible ? 'opacity-100' : 'opacity-0'}`}>
         {/* Navigation */}
-        <Navigation scrollPosition={scrollPosition} />
+        <EnhancedNavigation scrollPosition={scrollPosition} />
         
         {/* Page Content */}
         {children}

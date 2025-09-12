@@ -25,7 +25,7 @@ import Rituals from "@/pages/Rituals";
 import Journal from "@/pages/Journal";
 import JapaneseArtElements from "@/pages/JapaneseArtElements";
 import JapaneseDesignSystem from "@/pages/JapaneseDesignSystem";
-import Home from "@/pages/Home";
+
 import FrogAmbassadorDemo from "@/pages/FrogAmbassadorDemo";
 import SeasonalDemo from "@/pages/SeasonalDemo";
 
@@ -34,10 +34,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Index />,
-  },
-  {
-    path: "/home",
-    element: <Home />,
   },
   {
     path: "/the-way",

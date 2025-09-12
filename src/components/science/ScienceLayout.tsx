@@ -1,6 +1,6 @@
 
 import React from "react";
-import Navigation from "@/components/navigation/Navigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { MaContainer } from "@/components/ui/japanese/Layout";
@@ -15,7 +15,7 @@ const ScienceLayout = ({ children }: ScienceLayoutProps) => {
   return (
     <div className="bg-black min-h-screen">
       {/* Navigation */}
-      <Navigation scrollPosition={scrollPosition} />
+      <EnhancedNavigation scrollPosition={scrollPosition} />
       
       <div className="pt-20">
         <MaContainer>
