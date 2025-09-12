@@ -11,12 +11,10 @@ import { Search } from "lucide-react";
 
 // Import modular shop components
 import ShopHeroSection from "@/components/sections/shop/ShopHeroSection";
-import ShopTabsSection from "@/components/sections/shop/ShopTabsSection";
-import ShopIngredientsSection from "@/components/sections/shop/ShopIngredientsSection";
-import ShopBenefitsSection from "@/components/sections/shop/ShopBenefitsSection";
 import ShopCTASection from "@/components/sections/shop/ShopCTASection";
 import { ProductCard } from "@/components/shop/ProductCard";
-import MerchandiseSection from "@/components/shop/MerchandiseSection";
+import RefinedIngredientsSection from "@/components/sections/RefinedIngredientsSection";
+import EnhancedMerchandiseDisplay from "@/components/shop/EnhancedMerchandiseDisplay";
 
 const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -77,43 +75,55 @@ const Shop = () => {
             </div>
           </div>
           
-          {/* Featured Products Section */}
-          <ScrollSection className="py-12">
+          {/* Kaeru Signature Collection - Enhanced */}
+          <ScrollSection className="py-16">
             <div className="max-w-7xl mx-auto px-4">
-              <h2 className="text-sm tracking-widest text-gold uppercase text-center mb-2">FEATURED PRODUCTS</h2>
-              <h3 className="text-3xl md:text-4xl font-serif text-white text-center mb-8">
-                Our Signature Collection
-              </h3>
+              <div className="text-center mb-16">
+                <h2 className="text-sm tracking-widest text-gold uppercase mb-2">KAERU SIGNATURE COLLECTION</h2>
+                <h3 className="text-4xl md:text-6xl font-serif text-white mb-6">
+                  The Five Transformations
+                </h3>
+                <p className="text-white/70 max-w-3xl mx-auto text-lg">
+                  Each product represents a unique pathway to transformation, inspired by ancient wisdom and modern science.
+                </p>
+              </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Unique Product Display */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                 {filteredProducts.map((product, index) => (
-                  <ProductCard key={product.id} product={product} index={index} />
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.15, duration: 0.6 }}
+                    className="group relative"
+                  >
+                    <ProductCard product={product} index={index} />
+                  </motion.div>
                 ))}
               </div>
               
+              {/* Integrated Merchandise Display */}
+              <EnhancedMerchandiseDisplay />
+              
               {filteredProducts.length === 0 && (
                 <div className="text-center py-12 text-white/70">
-                  No products found matching "{searchTerm}"
+                  <p className="text-lg mb-4">No products found matching "{searchTerm}"</p>
+                  <button 
+                    onClick={() => setSearchTerm("")}
+                    className="text-gold hover:text-gold/80 underline"
+                  >
+                    Clear search
+                  </button>
                 </div>
               )}
             </div>
           </ScrollSection>
           
-          {/* Product Categories */}
-          <ScrollSection>
-            <ShopTabsSection />
-          </ScrollSection>
-          
-          {/* Merchandise Section - New Addition */}
-          <MerchandiseSection />
-          
-          {/* Ingredient Narratives Section */}
-          <ShopIngredientsSection />
-          
-          {/* Product Benefits */}
-          <ScrollSection>
-            <ShopBenefitsSection />
-          </ScrollSection>
+          {/* Sacred Ingredients - The Main Event */}
+          <div className="relative">
+            <RefinedIngredientsSection />
+          </div>
           
           {/* Ritual Builder CTA */}
           <ShopCTASection />

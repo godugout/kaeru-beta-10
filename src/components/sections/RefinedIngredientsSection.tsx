@@ -110,33 +110,41 @@ const RefinedIngredientsSection = ({ productName }: RefinedIngredientsSectionPro
   return (
     <ParallaxBackground>
       <SeasonalIngredientTheme season={currentSeason}>
-        <section className="py-20 relative overflow-hidden" role="region" aria-labelledby="ingredients-title">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-moss-green/5 to-transparent" />
+        <section className="py-32 relative overflow-hidden bg-gradient-to-b from-black via-moss-green/20 to-black" role="region" aria-labelledby="ingredients-title">
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(212,175,55,0.15),transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(212,175,55,0.1),transparent_50%)]" />
+          </div>
           
-          <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="max-w-8xl mx-auto px-4 relative z-10">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Flower2 className="w-5 h-5 text-gold" />
-            <h2 id="ingredients-title" className="text-sm tracking-widest text-gold">THE SACRED INGREDIENTS</h2>
-            <Flower2 className="w-5 h-5 text-gold" />
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="w-16 h-px bg-gradient-to-r from-transparent to-gold" />
+            <Sparkles className="w-6 h-6 text-gold animate-pulse" />
+            <h2 id="ingredients-title" className="text-xs tracking-[0.3em] text-gold uppercase">THE SACRED INGREDIENTS</h2>
+            <Sparkles className="w-6 h-6 text-gold animate-pulse" />
+            <div className="w-16 h-px bg-gradient-to-l from-transparent to-gold" />
           </div>
           
-          <h3 className="text-4xl md:text-6xl font-serif text-white mb-8">
+          <h3 className="text-5xl md:text-7xl font-serif text-white mb-12 leading-tight">
             {productName 
               ? "Key Ingredients & Their Stories" 
               : "Five Elements of Ancient Wisdom"
             }
           </h3>
           
-          <p className="text-white/70 max-w-4xl mx-auto text-lg leading-relaxed mb-6">
-            Each ingredient carries millennia of healing tradition and modern scientific validation, 
-            carefully selected to honor both nature's intelligence and therapeutic efficacy.
-          </p>
+          <div className="max-w-5xl mx-auto">
+            <p className="text-white/80 text-xl leading-relaxed mb-8">
+              Each ingredient carries millennia of healing tradition and modern scientific validation, 
+              carefully selected to honor both nature's intelligence and therapeutic efficacy.
+            </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-gold to-transparent mx-auto" />
+          </div>
         </motion.div>
 
         <motion.div 
@@ -214,28 +222,52 @@ const RefinedIngredientsSection = ({ productName }: RefinedIngredientsSectionPro
           </Button>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 mb-16 relative" role="grid">
-          {/* Ingredient Connection Visualization */}
+        {/* Experimental Card Layout */}
+        <div className="relative mb-20">
+          {/* Connection Visualization Layer */}
           <IngredientConnections
             ingredients={filteredIngredients}
             highlightedProducts={highlightedProducts}
             showConnections={showConnections || showSynergyVisualization}
           />
           
-          {filteredIngredients.map((ingredient, index) => (
-            <div key={ingredient.id} role="gridcell">
-              <EnhancedIngredientCard 
-                ingredient={ingredient} 
-                delay={index}
-                isSearchActive={isSearchActive}
-                searchTerm={searchTerm}
-                isSelected={isNavigating && index === currentIndex}
-                onFocus={() => setSelectedCardIndex(index)}
-                soundEnabled={soundEnabled}
-                onProductHighlight={handleProductHighlight}
-              />
-            </div>
-          ))}
+          {/* Enhanced Grid Layout for Better Screen Fit */}
+          <div 
+            className="grid gap-6 relative z-10" 
+            style={{
+              gridTemplateColumns: `repeat(${Math.min(filteredIngredients.length, 5)}, minmax(280px, 1fr))`,
+              gridAutoRows: 'minmax(400px, auto)'
+            }}
+            role="grid"
+          >
+            {filteredIngredients.map((ingredient, index) => (
+              <motion.div 
+                key={ingredient.id} 
+                role="gridcell"
+                initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  delay: index * 0.1, 
+                  duration: 0.7,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                className="group relative"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-transparent to-moss-green/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+                <EnhancedIngredientCard 
+                  ingredient={ingredient} 
+                  delay={index}
+                  isSearchActive={isSearchActive}
+                  searchTerm={searchTerm}
+                  isSelected={isNavigating && index === currentIndex}
+                  onFocus={() => setSelectedCardIndex(index)}
+                  soundEnabled={soundEnabled}
+                  onProductHighlight={handleProductHighlight}
+                />
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {filteredIngredients.length === 0 && (
