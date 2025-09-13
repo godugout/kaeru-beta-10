@@ -6,25 +6,25 @@ const benefits = [
     icon: Heart,
     title: "Recovery",
     description: "Supports natural healing",
-    color: "text-red-400"
+    color: "text-kaeru-gold"
   },
   {
     icon: Shield,
     title: "Anti-inflammatory",
     description: "Reduces inflammation naturally",
-    color: "text-blue-400"
+    color: "text-kaeru-gold"
   },
   {
     icon: Zap,
     title: "Calming",
     description: "Promotes deep relaxation",
-    color: "text-purple-400"
+    color: "text-kaeru-gold"
   },
   {
     icon: Leaf,
     title: "Natural",
     description: "Pure botanical ingredients",
-    color: "text-green-400"
+    color: "text-kaeru-gold"
   }
 ];
 

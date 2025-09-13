@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import WaterRipple from "@/components/animations/WaterRipple";
-import CartDrawer from "@/components/shop/cart/CartDrawer";
+import CartIcon from "@/components/cart/CartIcon";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 interface EnhancedNavigationProps {
   scrollPosition?: number;
@@ -13,12 +14,17 @@ interface EnhancedNavigationProps {
 
 const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const underlineRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleCart = () => {
+    setCartOpen(!cartOpen);
   };
 
   // Define nav items based on brand architecture with Shop first
@@ -103,9 +109,9 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
           })}
         </WaterRipple>
 
-        {/* Desktop Cart Drawer */}
+        {/* Desktop Cart Icon */}
         <div className="hidden md:flex items-center">
-          <CartDrawer />
+          <CartIcon onClick={toggleCart} />
         </div>
 
         {/* Mobile Menu Button with water ripple effect */}
@@ -160,12 +166,15 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
               
               {/* Mobile Cart */}
               <div className="pt-4">
-                <CartDrawer />
+                <CartIcon onClick={() => { toggleCart(); setIsOpen(false); }} />
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+      
+      {/* Cart Drawer */}
+      <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
     </div>
   );
 };
