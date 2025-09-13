@@ -20,13 +20,13 @@ export default {
     },
     extend: {
       colors: {
-        // KAERU Design System - Primary Colors
-        'kaeru-black': 'hsl(var(--kaeru-black))',
-        'kaeru-gold': 'hsl(var(--kaeru-gold))',
-        'moss-green': 'hsl(var(--moss-green))',
-        'fog-gray': 'hsl(var(--fog-gray))',
-        'jade-accent': 'hsl(var(--jade-accent))',
-        'glacier-blue': 'hsl(var(--glacier-blue))',
+        // KAERU Design System - Dark Luxury Colors
+        'kaeru-black': '#0a0a0a',
+        'kaeru-gold': '#d4af37',
+        'kaeru-moss': '#4a5d3a',
+        'kaeru-fog': '#e8e6e1',
+        'kaeru-jade': '#00494f',
+        'kaeru-stone': '#2c2c2c',
         
         // Shadcn Integration
         border: "hsl(var(--border))",
@@ -210,6 +210,19 @@ export default {
           "0%": { filter: "hue-rotate(0deg)" },
           "50%": { filter: "hue-rotate(15deg)" },
           "100%": { filter: "hue-rotate(0deg)" }
+        },
+        "breath": {
+          "0%, 100%": { opacity: "0.7" },
+          "50%": { opacity: "1" }
+        },
+        "gold-shimmer": {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" }
+        },
+        "frog-transform": {
+          "0%": { transform: "scale(1) translateY(0)" },
+          "50%": { transform: "scale(1.1) translateY(-10px)" },
+          "100%": { transform: "scale(1) translateY(0)" }
         }
       },
       animation: {
@@ -220,9 +233,15 @@ export default {
         "ripple": "ripple 2s ease-out forwards",
         "brush": "brush 2s ease-out forwards",
         "color-shift": "color-shift 8s infinite ease-in-out",
+        "breath": "breath 4s ease-in-out infinite",
+        "gold-shimmer": "gold-shimmer 3s linear infinite",
+        "frog-transform": "frog-transform 2s ease-in-out",
       },
       fontFamily: {
-        'serif': ['Playfair Display', 'serif', 'Georgia'],
+        'serif': ['Crimson Text', 'serif', 'Georgia'],
+        'sans': ['Inter', 'sans-serif', 'system-ui'],
+        'heading': ['Crimson Text', 'serif'],
+        'body': ['Inter', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-gold': 'linear-gradient(to right, #e6b980, #eacda3)',

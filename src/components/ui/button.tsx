@@ -18,12 +18,12 @@ const buttonVariants = cva(
         ghost: "bg-transparent text-foreground hover:bg-foreground/5 rounded-none text-[var(--text-sm)] hover:scale-[1.02]",
         link: "text-primary underline-offset-4 hover:underline",
         
-        // KAERU Design System - Primary Variants
-        primary: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-none border-0 text-[var(--text-sm)] hover:scale-[1.02] hover:shadow-[0_4px_12px_hsl(var(--kaeru-gold)/0.25)]",
+        // KAERU Dark Luxury Variants
+        primary: "kaeru-button-glow text-kaeru-black font-semibold rounded-none border-0 text-[var(--text-sm)] hover:scale-[1.02]",
         
         // KAERU-specific variants
-        gold: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-none border-0 text-[var(--text-sm)] hover:scale-[1.02] hover:shadow-[0_4px_12px_hsl(var(--kaeru-gold)/0.25)]",
-        goldOutline: "border border-primary bg-transparent text-primary hover:bg-primary/10 rounded-none text-[var(--text-sm)] hover:scale-[1.02]",
+        gold: "kaeru-button-glow text-kaeru-black font-semibold rounded-none border-0 text-[var(--text-sm)] hover:scale-[1.02]",
+        goldOutline: "border-2 border-kaeru-gold bg-transparent text-kaeru-gold hover:bg-kaeru-gold/10 rounded-none text-[var(--text-sm)] hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]",
       },
       size: {
         default: "h-12 px-6 py-3 text-[var(--text-sm)]",

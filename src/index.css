@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,14 +11,14 @@
   }
 
   :root {
-    /* MASTER COLOR PALETTE - KAERU DESIGN SYSTEM */
-    --kaeru-black: 240 11% 4%; /* #0A0A0B */
-    --kaeru-gold: 43 84% 59%; /* #D4AF37 */
-    --moss-green: 82 24% 29%; /* #4A5D3A */
-    --fog-gray: 40 17% 89%; /* #E8E6E1 */
-    --jade-accent: 160 100% 33%; /* #00A86B */
-    --glacier-blue: 204 33% 85%; /* #CDDDE8 */
-    --shadow-color: 240 11% 4% / 0.4; /* rgba(10, 10, 11, 0.4) */
+    /* KAERU DARK LUXURY COLOR PALETTE */
+    --kaeru-black: #0a0a0a;
+    --kaeru-gold: #d4af37;
+    --kaeru-moss: #4a5d3a;
+    --kaeru-fog: #e8e6e1;
+    --kaeru-jade: #00494f;
+    --kaeru-stone: #2c2c2c;
+    --shadow-color: rgba(10, 10, 10, 0.8);
 
     /* SPACING SYSTEM - 8px GRID */
     --space-xs: 0.5rem;   /* 8px */
@@ -53,76 +53,45 @@
     --z-modal: 300;
     --z-toast: 400;
 
-    /* SHADCN COLOR SYSTEM (mapped to KAERU palette) */
+    /* SHADCN COLOR SYSTEM (mapped to KAERU dark luxury palette) */
     --background: var(--kaeru-black);
-    --foreground: var(--fog-gray);
+    --foreground: var(--kaeru-fog);
 
-    --card: var(--kaeru-black);
-    --card-foreground: var(--fog-gray);
+    --card: var(--kaeru-stone);
+    --card-foreground: var(--kaeru-fog);
 
-    --popover: var(--kaeru-black);
-    --popover-foreground: var(--fog-gray);
+    --popover: var(--kaeru-stone);
+    --popover-foreground: var(--kaeru-fog);
 
     --primary: var(--kaeru-gold);
     --primary-foreground: var(--kaeru-black);
 
-    --secondary: var(--moss-green);
-    --secondary-foreground: var(--fog-gray);
+    --secondary: var(--kaeru-moss);
+    --secondary-foreground: var(--kaeru-fog);
 
-    --muted: var(--moss-green);
-    --muted-foreground: var(--fog-gray);
+    --muted: var(--kaeru-jade);
+    --muted-foreground: var(--kaeru-fog);
 
-    --accent: var(--jade-accent);
-    --accent-foreground: var(--kaeru-black);
+    --accent: var(--kaeru-jade);
+    --accent-foreground: var(--kaeru-fog);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: var(--fog-gray);
+    --destructive: #dc2626;
+    --destructive-foreground: var(--kaeru-fog);
 
-    --border: var(--moss-green);
-    --input: var(--moss-green);
+    --border: var(--kaeru-moss);
+    --input: var(--kaeru-stone);
     --ring: var(--kaeru-gold);
 
     --radius: 0.25rem; /* 4px default, 0 or 12px for specific cases */
 
     /* SIDEBAR COLORS */
     --sidebar-background: var(--kaeru-black);
-    --sidebar-foreground: var(--fog-gray);
+    --sidebar-foreground: var(--kaeru-fog);
     --sidebar-primary: var(--kaeru-gold);
     --sidebar-primary-foreground: var(--kaeru-black);
-    --sidebar-accent: var(--moss-green);
-    --sidebar-accent-foreground: var(--fog-gray);
-    --sidebar-border: var(--moss-green);
-    --sidebar-ring: var(--kaeru-gold);
-  }
-
-  /* KAERU uses dark theme by default - same palette for consistency */
-  .dark {
-    --background: var(--kaeru-black);
-    --foreground: var(--fog-gray);
-    --card: var(--kaeru-black);
-    --card-foreground: var(--fog-gray);
-    --popover: var(--kaeru-black);
-    --popover-foreground: var(--fog-gray);
-    --primary: var(--kaeru-gold);
-    --primary-foreground: var(--kaeru-black);
-    --secondary: var(--moss-green);
-    --secondary-foreground: var(--fog-gray);
-    --muted: var(--moss-green);
-    --muted-foreground: var(--fog-gray);
-    --accent: var(--jade-accent);
-    --accent-foreground: var(--kaeru-black);
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: var(--fog-gray);
-    --border: var(--moss-green);
-    --input: var(--moss-green);
-    --ring: var(--kaeru-gold);
-    --sidebar-background: var(--kaeru-black);
-    --sidebar-foreground: var(--fog-gray);
-    --sidebar-primary: var(--kaeru-gold);
-    --sidebar-primary-foreground: var(--kaeru-black);
-    --sidebar-accent: var(--moss-green);
-    --sidebar-accent-foreground: var(--fog-gray);
-    --sidebar-border: var(--moss-green);
+    --sidebar-accent: var(--kaeru-moss);
+    --sidebar-accent-foreground: var(--kaeru-fog);
+    --sidebar-border: var(--kaeru-moss);
     --sidebar-ring: var(--kaeru-gold);
   }
 }
@@ -133,37 +102,38 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-kaeru-black text-kaeru-fog;
+    font-family: 'Inter', sans-serif;
   }
 }
 
 @layer components {
   /* KAERU DESIGN SYSTEM COMPONENTS */
   
-  /* Typography Classes */
+  /* Typography Classes - Dark Luxury */
   .text-kaeru-h1 {
-    @apply text-[var(--text-4xl)] font-serif font-bold leading-tight tracking-tight;
-    font-family: 'Playfair Display', serif;
+    @apply text-[var(--text-4xl)] font-heading font-bold leading-tight tracking-tight text-kaeru-fog;
+    font-family: 'Crimson Text', serif;
   }
   
   .text-kaeru-h2 {
-    @apply text-[var(--text-3xl)] font-serif font-medium leading-tight;
-    font-family: 'Playfair Display', serif;
+    @apply text-[var(--text-3xl)] font-heading font-semibold leading-tight text-kaeru-fog;
+    font-family: 'Crimson Text', serif;
   }
   
   .text-kaeru-h3 {
-    @apply text-[var(--text-2xl)] font-medium leading-snug;
-    font-family: 'Inter', sans-serif;
+    @apply text-[var(--text-2xl)] font-heading font-medium leading-snug text-kaeru-fog;
+    font-family: 'Crimson Text', serif;
   }
   
   .text-kaeru-body {
-    @apply text-[var(--text-base)] leading-relaxed;
+    @apply text-[var(--text-base)] leading-relaxed text-kaeru-fog;
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
   }
   
   .text-kaeru-small {
-    @apply text-[var(--text-sm)] opacity-80;
+    @apply text-[var(--text-sm)] opacity-80 text-kaeru-fog;
     font-family: 'Inter', sans-serif;
   }
 
@@ -331,17 +301,31 @@
   }
   
   .gold-glow {
-    box-shadow: 0 0 15px hsl(var(--kaeru-gold) / 0.15);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
   }
   
   .gold-border-glow {
-    @apply border border-primary/20;
+    @apply border border-kaeru-gold/20;
     transition: all var(--duration-base) var(--ease-kaeru);
   }
   
   .gold-border-glow:hover {
-    @apply border-primary/40;
-    box-shadow: 0 0 15px hsl(var(--kaeru-gold) / 0.15);
+    @apply border-kaeru-gold/60;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  }
+
+  /* Luxury Button Effects */
+  .kaeru-button-glow {
+    background: linear-gradient(135deg, var(--kaeru-gold), #f4d03f);
+    background-size: 200% 200%;
+    animation: gold-shimmer 3s linear infinite;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .kaeru-button-glow:hover {
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+    transform: translateY(-2px);
   }
 
   /* Sacred Ingredients Enhancements */
