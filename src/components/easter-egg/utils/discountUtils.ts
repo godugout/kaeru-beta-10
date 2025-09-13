@@ -11,11 +11,9 @@ export const generateSeasonalDiscountCode = (season: Season): string => {
     winter: 'FUYU'
   };
   
-  // Generate 4 random alphanumeric characters
-  const randomChars = Math.random().toString(36).substring(2, 6).toUpperCase();
-  
-  // Create the discount code with season prefix and random characters
-  return `${seasonPrefix[season]}-${randomChars}`;
+  // For Konami code, always return FROG2024 as requested
+  // For other easter eggs, use seasonal codes
+  return 'FROG2024';
 };
 
 // Calculate discount amount based on season

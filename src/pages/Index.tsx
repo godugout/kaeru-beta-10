@@ -1,55 +1,25 @@
 
 import { useEffect, useState } from "react";
 import Footer from "@/components/ui/footer";
-import FrogReturns from "@/components/special/FrogReturns";
-import useKonamiCode from "@/hooks/useKonamiCode";
+import { useFrogEasterEgg } from "@/contexts/FrogEasterEggContext";
+import FrogReturnsEasterEgg from "@/components/easter-egg/FrogReturnsEasterEgg";
 import EnhancedHeroSection from "@/components/hero/EnhancedHeroSection";
 import TheWaySection from "@/components/sections/TheWaySection";
 import RitualsSection from "@/components/sections/RitualsSection";
 import ReturnSection from "@/components/sections/ReturnSection";
 import OriginsHeroSection from "@/components/sections/OriginsHeroSection";
 import LoadingScreen from "@/components/loading/LoadingScreen";
-import { productData } from "@/data/productData";
 import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { motion } from "framer-motion";
-import WaterRipple from "@/components/animations/WaterRipple";
-import VerticalRhythm from "@/components/ui/japanese/VerticalRhythm";
+import GoldenPondRipple from "@/components/easter-egg/GoldenPondRipple";
+import FrogAmbientMode from "@/components/ambient/FrogAmbientMode";
 
 const Index = () => {
   const [introComplete, setIntroComplete] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
   const scrollPosition = useScrollPosition();
-  
-  // Easter egg state
-  const [showFrogReturns, setShowFrogReturns] = useState(false);
-  const [konamiActivated, resetKonami] = useKonamiCode();
-  
-  useEffect(() => {    
-    // Setup constellation trigger click handler
-    const handleConstellationClick = () => {
-      setShowFrogReturns(true);
-    };
-    
-    const constellationTrigger = document.getElementById('constellation-trigger');
-    if (constellationTrigger) {
-      constellationTrigger.addEventListener('click', handleConstellationClick);
-    }
-    
-    return () => {
-      if (constellationTrigger) {
-        constellationTrigger.removeEventListener('click', handleConstellationClick);
-      }
-    };
-  }, []);
-  
-  // Handle Konami code activation
-  useEffect(() => {
-    if (konamiActivated) {
-      setShowFrogReturns(true);
-      resetKonami();
-    }
-  }, [konamiActivated, resetKonami]);
+  const { isEasterEggOpen } = useFrogEasterEgg();
 
   // Handle loading screen completion
   const handleIntroComplete = () => {
@@ -80,10 +50,10 @@ const Index = () => {
       {!introComplete && <LoadingScreen onComplete={handleIntroComplete} />}
       
       {/* Easter Egg Modal */}
-      <FrogReturns 
-        isOpen={showFrogReturns} 
-        onClose={() => setShowFrogReturns(false)} 
-      />
+      <FrogReturnsEasterEgg />
+      
+      {/* Ambient Mode */}
+      <FrogAmbientMode />
       
       {/* Main Content */}
       <motion.div 
@@ -94,8 +64,11 @@ const Index = () => {
         {/* Enhanced Navigation with water ripple */}
         <EnhancedNavigation scrollPosition={scrollPosition} />
         
-        {/* Enhanced Hero Section */}
-        <EnhancedHeroSection />
+        {/* Enhanced Hero Section with Golden Pond Easter Egg */}
+        <div className="relative">
+          <EnhancedHeroSection />
+          <GoldenPondRipple />
+        </div>
         
         {/* The Way Section */}
         <TheWaySection />
