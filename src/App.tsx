@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { CartProvider } from "@/contexts/CartContext";
 import { WishlistProvider } from "@/contexts/WishlistContext";
 import { FrogEasterEggProvider } from "@/contexts/FrogEasterEggContext";
+import { LocalizationProvider } from "@/contexts/LocalizationContext";
 import "./App.css";
 
 // Lazy import pages for code splitting
@@ -35,6 +36,7 @@ const JapaneseArtElements = lazy(() => import("@/pages/JapaneseArtElements"));
 const JapaneseDesignSystem = lazy(() => import("@/pages/JapaneseDesignSystem"));
 const FrogAmbassadorDemo = lazy(() => import("@/pages/FrogAmbassadorDemo"));
 const SeasonalDemo = lazy(() => import("@/pages/SeasonalDemo"));
+const JapaneseLocalizationDemo = lazy(() => import("@/pages/JapaneseLocalizationDemo"));
 
 // Loading component
 const PageLoader = () => (
@@ -133,6 +135,10 @@ const router = createBrowserRouter([
     element: <Suspense fallback={<PageLoader />}><SeasonalDemo /></Suspense>,
   },
   {
+    path: "/japanese-localization-demo",
+    element: <Suspense fallback={<PageLoader />}><JapaneseLocalizationDemo /></Suspense>,
+  },
+  {
     path: "*",
     element: <NotFound />,
   },
@@ -142,14 +148,16 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <StrictMode>
-      <CartProvider>
-        <WishlistProvider>
-          <FrogEasterEggProvider>
-            <RouterProvider router={router} />
-            <Toaster />
-          </FrogEasterEggProvider>
-        </WishlistProvider>
-      </CartProvider>
+      <LocalizationProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <FrogEasterEggProvider>
+              <RouterProvider router={router} />
+              <Toaster />
+            </FrogEasterEggProvider>
+          </WishlistProvider>
+        </CartProvider>
+      </LocalizationProvider>
     </StrictMode>
   );
 };

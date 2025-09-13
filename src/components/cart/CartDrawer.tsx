@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import CartItem from "./CartItem";
+import { useLocalization } from "@/contexts/LocalizationContext";
 import EmptyCart from "./EmptyCart";
 
 interface CartDrawerProps {
@@ -20,6 +21,7 @@ interface CartDrawerProps {
 
 const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
   const { items, updateQuantity, removeItem, itemCount, subtotal } = useCart();
+  const { t, formatCurrency } = useLocalization();
 
   // Calculate discount
   const hasDiscount = items.length >= 2;
@@ -35,7 +37,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
       >
         <SheetHeader className="p-6 pb-4 border-b border-white/10">
           <SheetTitle className="text-2xl font-serif text-kaeru-gold flex items-center justify-between">
-            Your Ritual
+            <span className="font-japanese">{t('cart.title')}</span>
             <span className="text-sm font-normal text-white/60">
               {itemCount} {itemCount === 1 ? 'item' : 'items'}
             </span>
@@ -69,8 +71,8 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
               {/* Pricing Breakdown */}
               <div className="space-y-2">
                 <div className="flex justify-between text-white/80">
-                  <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>{t('cart.subtotal')}</span>
+                  <span>{formatCurrency(subtotal)}</span>
                 </div>
                 
                 {hasDiscount && (
@@ -79,17 +81,17 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex justify-between text-green-400"
                   >
-                    <span>Ritual Discount (-{discountPercent}%)</span>
-                    <span>-${discountAmount.toFixed(2)}</span>
+                    <span>{t('cart.discount')} (-{discountPercent}%)</span>
+                    <span>-{formatCurrency(discountAmount)}</span>
                   </motion.div>
                 )}
                 
                 <Separator className="bg-white/20" />
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-semibold text-white">Total</span>
+                  <span className="text-lg font-semibold text-white">{t('cart.total')}</span>
                   <span className="text-2xl font-serif text-kaeru-gold">
-                    ${total.toFixed(2)}
+                    {formatCurrency(total)}
                   </span>
                 </div>
               </div>
@@ -102,16 +104,16 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                   onClick={onClose}
                 >
                   <Link to="/checkout">
-                    <span className="relative z-10">Begin Checkout</span>
+                    <span className="relative z-10 font-japanese">{t('cart.checkout')}</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                   </Link>
                 </Button>
                 
                 <button 
                   onClick={onClose}
-                  className="w-full text-center text-white/70 hover:text-kaeru-gold transition-colors text-sm min-h-[44px]"
+                  className="w-full text-center text-white/70 hover:text-kaeru-gold transition-colors text-sm min-h-[44px] font-japanese"
                 >
-                  Continue Shopping
+                  {t('cart.continue')}
                 </button>
               </div>
               

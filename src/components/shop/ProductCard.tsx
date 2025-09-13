@@ -6,6 +6,7 @@ import { JapaneseProse } from "@/components/ui/japanese/Typography";
 import { useOptimizedAnimation } from "@/hooks/useOptimizedAnimation";
 import { Button } from "@/components/ui/button";
 import QuickViewDialog from "./QuickViewDialog";
+import { useLocalization } from "@/contexts/LocalizationContext";
 import { useCart } from "@/contexts/CartContext";
 import { Product } from "@/types/product";
 
@@ -18,6 +19,7 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
   const { shouldAnimate } = useOptimizedAnimation();
   const [showQuickView, setShowQuickView] = useState(false);
   const { addItem } = useCart();
+  const { formatCurrency, t } = useLocalization();
   
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -66,7 +68,7 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
                 setShowQuickView(true);
               }}
             >
-              <Eye size={16} className="mr-1" /> Quick View
+              <Eye size={16} className="mr-1" /> {t('product.quickView')}
             </Button>
             <Button 
               variant="gold" 
@@ -85,7 +87,7 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
               {product.collection}
             </div>
             <div className="text-gold font-medium">
-              ${(product.price / 100).toFixed(2)}
+              {formatCurrency(product.price / 100)}
             </div>
           </div>
           
@@ -124,7 +126,7 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
               className="inline-flex items-center text-gold text-sm border border-gold/50 px-4 py-2 hover:bg-gold/10 transition-colors min-h-[44px]"
               aria-label={`View details for ${product.name}`}
             >
-              Explore
+              {t('product.explore')}
               <ChevronRight size={16} className="ml-1 opacity-70" />
             </a>
             
@@ -134,7 +136,7 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
               className="text-white/70 hover:text-gold hover:bg-transparent min-h-[44px]"
               onClick={handleAddToCart}
             >
-              <ShoppingCart size={16} className="mr-1" /> Add
+              <ShoppingCart size={16} className="mr-1" /> {t('product.add')}
             </Button>
           </div>
         </div>

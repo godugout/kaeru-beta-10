@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap&preconnect=true&dns-prefetch=true');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap&preconnect=true&dns-prefetch=true');
 
 @tailwind base;
 @tailwind components;
@@ -133,9 +133,27 @@
     line-height: 1.6;
   }
   
-  .text-kaeru-small {
-    @apply text-[var(--text-sm)] opacity-80 text-kaeru-fog;
-    font-family: 'Inter', sans-serif;
+  /* Japanese Typography Support */
+  .font-japanese {
+    font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+    letter-spacing: 0.05em;
+  }
+  
+  .text-kaeru-jp {
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+  }
+
+  /* Right-to-left support for Japanese reading patterns */
+  .rtl-support {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  .rtl-support .ltr {
+    direction: ltr;
+    text-align: left;
   }
 
   /* Spacing Classes */

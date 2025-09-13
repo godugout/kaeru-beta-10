@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import WaterRipple from "@/components/animations/WaterRipple";
 import CartIcon from "@/components/cart/CartIcon";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import CartDrawer from "@/components/cart/CartDrawer";
 
 interface EnhancedNavigationProps {
@@ -109,8 +110,9 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
           })}
         </WaterRipple>
 
-        {/* Desktop Cart Icon */}
-        <div className="hidden md:flex items-center">
+        {/* Desktop Cart Icon and Language Toggle */}
+        <div className="hidden md:flex items-center space-x-3">
+          <LanguageToggle />
           <CartIcon onClick={toggleCart} />
         </div>
 
@@ -190,8 +192,15 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
                 })}
               </div>
               
-              {/* Mobile Cart at bottom */}
-              <div className="p-8 flex justify-center">
+              {/* Mobile Cart and Language Toggle at bottom */}
+              <div className="p-8 flex justify-center space-x-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.6 }}
+                >
+                  <LanguageToggle />
+                </motion.div>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}

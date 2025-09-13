@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useLocalization } from "@/contexts/LocalizationContext";
 
 const EmptyCart = () => {
+  const { t } = useLocalization();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -64,7 +66,7 @@ const EmptyCart = () => {
         transition={{ delay: 0.8 }}
         className="text-xl font-serif text-kaeru-gold mb-3"
       >
-        Your ritual awaits
+        {t('cart.empty')}
       </motion.h3>
       
       <motion.p
@@ -86,7 +88,7 @@ const EmptyCart = () => {
           className="bg-kaeru-gold text-kaeru-black hover:bg-kaeru-gold/90 px-8"
         >
           <Link to="/products">
-            Explore Products
+            {t('cart.explore')}
           </Link>
         </Button>
       </motion.div>

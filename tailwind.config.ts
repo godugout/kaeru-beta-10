@@ -251,10 +251,11 @@ export default {
         "frog-transform": "frog-transform 2s ease-in-out",
       },
       fontFamily: {
-        'serif': ['Crimson Text', 'serif', 'Georgia'],
-        'sans': ['Inter', 'sans-serif', 'system-ui'],
-        'heading': ['Crimson Text', 'serif'],
-        'body': ['Inter', 'sans-serif'],
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'serif': ['Crimson Text', 'Georgia', 'serif'],
+        'heading': ['Crimson Text', 'Georgia', 'serif'],
+        'body': ['Inter', 'system-ui', 'sans-serif'],
+        'japanese': ['Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-gold': 'linear-gradient(to right, #e6b980, #eacda3)',
