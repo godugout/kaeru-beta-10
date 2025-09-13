@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import Footer from "@/components/ui/footer";
 import FrogReturns from "@/components/special/FrogReturns";
 import useKonamiCode from "@/hooks/useKonamiCode";
-import HomeHeroSection from "@/components/sections/HomeHeroSection";
-import ProductsSection from "@/components/sections/ProductsSection";
-import OriginsSection from "@/components/sections/OriginsSection";
-import ShopSection from "@/components/sections/ShopSection";
-import EssenceSection from "@/components/sections/EssenceSection";
-import DisciplineJournal from "@/components/sections/DisciplineJournal";
+import EnhancedHeroSection from "@/components/hero/EnhancedHeroSection";
+import TheWaySection from "@/components/sections/TheWaySection";
+import RitualsSection from "@/components/sections/RitualsSection";
+import ReturnSection from "@/components/sections/ReturnSection";
+import OriginsHeroSection from "@/components/sections/OriginsHeroSection";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import { productData } from "@/data/productData";
 import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
@@ -95,75 +94,20 @@ const Index = () => {
         {/* Enhanced Navigation with water ripple */}
         <EnhancedNavigation scrollPosition={scrollPosition} />
         
-        {/* Hero Section */}
-        <WaterRipple>
-          <HomeHeroSection />
-        </WaterRipple>
+        {/* Enhanced Hero Section */}
+        <EnhancedHeroSection />
         
-        {/* The Way Section (Brand Philosophy) */}
-        <WaterRipple className="py-24">
-          <motion.section 
-            id="the-way"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={sectionVariants}
-          >
-            <EssenceSection 
-              toggleScienceSection={() => window.location.href = '/library'} 
-              scrollPosition={scrollPosition}
-            />
-          </motion.section>
-        </WaterRipple>
+        {/* The Way Section */}
+        <TheWaySection />
         
-        {/* Rituals Section (Products) with vertical rhythm */}
-        <VerticalRhythm spacing="loose">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={sectionVariants}
-          >
-            <ProductsSection products={productData} />
-          </motion.div>
-        </VerticalRhythm>
-
-        {/* Origins Section with water ripple */}
-        <WaterRipple>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={sectionVariants}
-          >
-            <OriginsSection />
-          </motion.div>
-        </WaterRipple>
+        {/* Rituals Section */}
+        <RitualsSection />
         
-        {/* Shop Section with vertical rhythm */}
-        <VerticalRhythm spacing="normal">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={sectionVariants}
-          >
-            <ShopSection />
-          </motion.div>
-        </VerticalRhythm>
+        {/* Return Section */}
+        <ReturnSection />
         
-        {/* Discipline Journal Section with water ripple */}
-        <WaterRipple className="py-24 bg-gray-950">
-          <motion.section 
-            id="journal"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={sectionVariants}
-          >
-            <DisciplineJournal />
-          </motion.section>
-        </WaterRipple>
+        {/* Origins Section */}
+        <OriginsHeroSection />
         
         {/* Footer */}
         <Footer />
