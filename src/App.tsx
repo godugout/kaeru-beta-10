@@ -10,6 +10,7 @@ import "./App.css";
 // Import all pages
 import Index from "@/pages/Index";
 import TheWay from "@/pages/TheWay";
+import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
 import EnhancedProductDetail from "@/pages/EnhancedProductDetail";
 import Shop from "@/pages/Shop";
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/enhanced-product/:productId",
     element: <EnhancedProductDetail />,
+  },
+  {
+    path: "/products",
+    element: <Products />,
   },
   {
     path: "/shop",
