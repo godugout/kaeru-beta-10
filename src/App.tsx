@@ -7,29 +7,48 @@ import { WishlistProvider } from "@/contexts/WishlistContext";
 import { FrogEasterEggProvider } from "@/contexts/FrogEasterEggContext";
 import "./App.css";
 
-// Import all pages
-import Index from "@/pages/Index";
-import TheWay from "@/pages/TheWay";
-import Products from "@/pages/Products";
-import ProductDetail from "@/pages/ProductDetail";
-import EnhancedProductDetail from "@/pages/EnhancedProductDetail";
-import Shop from "@/pages/Shop";
-import Checkout from "@/pages/Checkout";
-import NotFound from "@/pages/NotFound";
-import FounderStory from "@/pages/FounderStory";
-import FoundersStoryDetail from "@/pages/FoundersStoryDetail";
-import Library from "@/pages/Library";
-import Origins from "@/pages/Origins";
-import Science from "@/pages/Science";
-import RitualBuilder from "@/pages/RitualBuilder";
-import Rituals from "@/pages/Rituals";
-import Journal from "@/pages/Journal";
-import JournalArticlePage from "@/components/journal/JournalArticlePage";
-import JapaneseArtElements from "@/pages/JapaneseArtElements";
-import JapaneseDesignSystem from "@/pages/JapaneseDesignSystem";
+// Lazy import pages for code splitting
+import { lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/loading-skeleton";
 
-import FrogAmbassadorDemo from "@/pages/FrogAmbassadorDemo";
-import SeasonalDemo from "@/pages/SeasonalDemo";
+// Critical pages loaded immediately
+import Index from "@/pages/Index";
+import NotFound from "@/pages/NotFound";
+
+// Lazy loaded pages
+const TheWay = lazy(() => import("@/pages/TheWay"));
+const Products = lazy(() => import("@/pages/Products"));
+const ProductDetail = lazy(() => import("@/pages/ProductDetail"));
+const EnhancedProductDetail = lazy(() => import("@/pages/EnhancedProductDetail"));
+const Shop = lazy(() => import("@/pages/Shop"));
+const Checkout = lazy(() => import("@/pages/Checkout"));
+const FounderStory = lazy(() => import("@/pages/FounderStory"));
+const FoundersStoryDetail = lazy(() => import("@/pages/FoundersStoryDetail"));
+const Library = lazy(() => import("@/pages/Library"));
+const Origins = lazy(() => import("@/pages/Origins"));
+const Science = lazy(() => import("@/pages/Science"));
+const RitualBuilder = lazy(() => import("@/pages/RitualBuilder"));
+const Rituals = lazy(() => import("@/pages/Rituals"));
+const Journal = lazy(() => import("@/pages/Journal"));
+const JournalArticlePage = lazy(() => import("@/components/journal/JournalArticlePage"));
+const JapaneseArtElements = lazy(() => import("@/pages/JapaneseArtElements"));
+const JapaneseDesignSystem = lazy(() => import("@/pages/JapaneseDesignSystem"));
+const FrogAmbassadorDemo = lazy(() => import("@/pages/FrogAmbassadorDemo"));
+const SeasonalDemo = lazy(() => import("@/pages/SeasonalDemo"));
+
+// Loading component
+const PageLoader = () => (
+  <div className="min-h-screen bg-kaeru-black flex items-center justify-center">
+    <div className="max-w-4xl mx-auto px-4 space-y-8">
+      <Skeleton className="h-16 w-64 mx-auto" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <Skeleton key={i} className="aspect-[4/3]" />
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 // Create router with routes to all pages
 const router = createBrowserRouter([
@@ -39,79 +58,79 @@ const router = createBrowserRouter([
   },
   {
     path: "/the-way",
-    element: <TheWay />,
+    element: <Suspense fallback={<PageLoader />}><TheWay /></Suspense>,
   },
   {
     path: "/origins",
-    element: <Origins />,
+    element: <Suspense fallback={<PageLoader />}><Origins /></Suspense>,
   },
   {
     path: "/origins/founders-story",
-    element: <FounderStory />,
+    element: <Suspense fallback={<PageLoader />}><FounderStory /></Suspense>,
   },
   {
     path: "/founder-story-detail",
-    element: <FoundersStoryDetail />,
+    element: <Suspense fallback={<PageLoader />}><FoundersStoryDetail /></Suspense>,
   },
   {
     path: "/product/:productId",
-    element: <EnhancedProductDetail />,
+    element: <Suspense fallback={<PageLoader />}><EnhancedProductDetail /></Suspense>,
   },
   {
     path: "/enhanced-product/:productId",
-    element: <EnhancedProductDetail />,
+    element: <Suspense fallback={<PageLoader />}><EnhancedProductDetail /></Suspense>,
   },
   {
     path: "/products",
-    element: <Products />,
+    element: <Suspense fallback={<PageLoader />}><Products /></Suspense>,
   },
   {
     path: "/shop",
-    element: <Shop />,
+    element: <Suspense fallback={<PageLoader />}><Shop /></Suspense>,
   },
   {
     path: "/checkout",
-    element: <Checkout />,
+    element: <Suspense fallback={<PageLoader />}><Checkout /></Suspense>,
   },
   {
     path: "/library",
-    element: <Library />,
+    element: <Suspense fallback={<PageLoader />}><Library /></Suspense>,
   },
   {
     path: "/science",
-    element: <Science />,
+    element: <Suspense fallback={<PageLoader />}><Science /></Suspense>,
   },
   {
     path: "/ritual-builder",
-    element: <RitualBuilder />,
+    element: <Suspense fallback={<PageLoader />}><RitualBuilder /></Suspense>,
   },
   {
     path: "/rituals",
-    element: <Rituals />,
+    element: <Suspense fallback={<PageLoader />}><Rituals /></Suspense>,
   },
   {
     path: "/journal",
-    element: <Journal />,
+    element: <Suspense fallback={<PageLoader />}><Journal /></Suspense>,
   },
   {
     path: "/journal/:slug", 
-    element: <JournalArticlePage />,
+    element: <Suspense fallback={<PageLoader />}><JournalArticlePage /></Suspense>,
   },
   {
     path: "/japanese-art",
-    element: <JapaneseArtElements />,
+    element: <Suspense fallback={<PageLoader />}><JapaneseArtElements /></Suspense>,
   },
   {
     path: "/japanese-design",
-    element: <JapaneseDesignSystem />,
+    element: <Suspense fallback={<PageLoader />}><JapaneseDesignSystem /></Suspense>,
   },
   {
     path: "/ambassador-demo",
-    element: <FrogAmbassadorDemo />,
+    element: <Suspense fallback={<PageLoader />}><FrogAmbassadorDemo /></Suspense>,
   },
   {
     path: "/seasonal-demo",
-    element: <SeasonalDemo />,
+    element: <Suspense fallback={<PageLoader />}><SeasonalDemo /></Suspense>,
   },
   {
     path: "*",

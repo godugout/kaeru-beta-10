@@ -130,7 +130,7 @@ const ProductCard = ({ product, onQuickAdd, onProductClick }: ProductCardProps) 
             e.stopPropagation();
             onQuickAdd(product);
           }}
-          className="w-full bg-kaeru-gold/10 hover:bg-kaeru-gold/20 text-kaeru-gold border border-kaeru-gold/30 hover:border-kaeru-gold/50 transition-all duration-300"
+          className="w-full bg-kaeru-gold/10 hover:bg-kaeru-gold/20 text-kaeru-gold border border-kaeru-gold/30 hover:border-kaeru-gold/50 transition-all duration-300 min-h-[44px]"
           variant="outline"
         >
           <ShoppingCart className="w-4 h-4 mr-2" />

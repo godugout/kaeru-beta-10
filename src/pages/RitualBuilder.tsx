@@ -33,7 +33,7 @@ const RitualBuilder = () => {
         <div className="max-w-7xl mx-auto px-4">
           {/* Progress Bar */}
           <motion.div
-            className="pt-8 pb-16"
+            className="pt-8 pb-8 md:pb-16"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -41,13 +41,14 @@ const RitualBuilder = () => {
             <ProgressBar currentStep={currentStep} totalSteps={3} />
           </motion.div>
 
-          {/* Step Content */}
+          {/* Step Content - Stacks vertically on mobile */}
           <motion.div
             key={currentStep}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mobile-stack space-y-6"
           >
             {renderCurrentStep()}
           </motion.div>

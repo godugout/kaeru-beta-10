@@ -54,11 +54,13 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
             width="400"
             height="300"
             loading={index < 3 ? "eager" : "lazy"}
+            decoding="async"
           />
           <div className="absolute bottom-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
             <Button 
               variant="goldOutline" 
               size="sm"
+              className="min-h-[44px]"
               onClick={(e) => {
                 e.preventDefault();
                 setShowQuickView(true);
@@ -69,6 +71,7 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
             <Button 
               variant="gold" 
               size="sm"
+              className="min-h-[44px] min-w-[44px]"
               onClick={handleAddToCart}
             >
               <ShoppingCart size={16} />
@@ -118,7 +121,7 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
           <div className="flex justify-between items-center">
             <a 
               href={`/product/${product.id}`}
-              className="inline-flex items-center text-gold text-sm border border-gold/50 px-4 py-2 hover:bg-gold/10 transition-colors"
+              className="inline-flex items-center text-gold text-sm border border-gold/50 px-4 py-2 hover:bg-gold/10 transition-colors min-h-[44px]"
               aria-label={`View details for ${product.name}`}
             >
               Explore
@@ -128,7 +131,7 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
             <Button
               variant="ghost"
               size="sm"
-              className="text-white/70 hover:text-gold hover:bg-transparent"
+              className="text-white/70 hover:text-gold hover:bg-transparent min-h-[44px]"
               onClick={handleAddToCart}
             >
               <ShoppingCart size={16} className="mr-1" /> Add

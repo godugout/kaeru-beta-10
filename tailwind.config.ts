@@ -128,6 +128,19 @@ export default {
           dark: '#A63D21',
         },
       },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      screens: {
+        'xs': '475px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      },
       spacing: {
         // KAERU Design System - 8px Grid
         'kaeru-xs': 'var(--space-xs)',     // 8px
@@ -256,5 +269,31 @@ export default {
   plugins: [
     require("tailwindcss-animate"),
     require("./src/theme/plugins/japaneseLayoutPlugin"),
+    // Mobile optimization plugin
+    function({ addUtilities }) {
+      addUtilities({
+        '.mobile-full-width': {
+          '@media (max-width: 768px)': {
+            width: '100vw',
+            'margin-left': 'calc(50% - 50vw)'
+          }
+        },
+        '.mobile-stack': {
+          '@media (max-width: 768px)': {
+            'flex-direction': 'column'
+          }
+        },
+        '.mobile-hide': {
+          '@media (max-width: 768px)': {
+            display: 'none'
+          }
+        },
+        '.touch-target': {
+          'min-width': '44px',
+          'min-height': '44px',
+          'touch-action': 'manipulation'
+        }
+      });
+    }
   ],
 } satisfies Config;

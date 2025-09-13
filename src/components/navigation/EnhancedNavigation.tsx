@@ -118,55 +118,87 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
         <WaterRipple className="md:hidden">
           <Button 
             variant="ghost" 
-            className="text-gold hover:bg-transparent hover:text-gold"
+            className="text-gold hover:bg-transparent hover:text-gold min-w-[44px] min-h-[44px]"
             onClick={toggleMenu}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
           >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </Button>
         </WaterRipple>
       </div>
 
-      {/* Mobile Navigation with improved animation */}
+      {/* Full-screen Mobile Navigation Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: "100vh" }}
-            exit={{ opacity: 0, y: -20, height: 0 }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 bg-black bg-opacity-95 z-40 md:hidden pt-24"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 bg-kaeru-black/98 backdrop-blur-md z-40 md:hidden"
           >
-            <div className="flex flex-col items-center space-y-10 p-8">
-              {navItems.map((item) => {
-                const active = isActive(item.href);
-                
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="relative tracking-widest text-xl transition-colors duration-300 group"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <span className={active ? 'text-gold' : 'text-white/80 group-hover:text-gold'}>
-                      {item.name}
-                    </span>
-                    
-                    {/* Gold ink underline animation */}
-                    {active && (
-                      <motion.div 
-                        className="absolute left-1/2 bottom-0 h-px bg-gold"
-                        initial={{ width: 0 }}
-                        animate={{ width: "100%", x: "-50%" }}
-                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      />
-                    )}
-                  </Link>
-                );
-              })}
+            <div className="flex flex-col h-full">
+              {/* Close button */}
+              <div className="flex justify-end p-6">
+                <Button 
+                  variant="ghost" 
+                  className="text-kaeru-gold hover:bg-transparent hover:text-kaeru-gold min-w-[44px] min-h-[44px]"
+                  onClick={toggleMenu}
+                  aria-label="Close menu"
+                >
+                  <X size={24} />
+                </Button>
+              </div>
               
-              {/* Mobile Cart */}
-              <div className="pt-4">
-                <CartIcon onClick={() => { toggleCart(); setIsOpen(false); }} />
+              {/* Navigation items */}
+              <div className="flex-1 flex flex-col items-center justify-center space-y-8 px-8">
+                {navItems.map((item, index) => {
+                  const active = isActive(item.href);
+                  
+                  return (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ 
+                        duration: 0.4, 
+                        delay: index * 0.1,
+                        ease: [0.22, 1, 0.36, 1] 
+                      }}
+                    >
+                      <Link
+                        to={item.href}
+                        className="relative tracking-widest text-3xl font-light transition-colors duration-300 group min-h-[44px] flex items-center"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <span className={active ? 'text-kaeru-gold' : 'text-kaeru-fog group-hover:text-kaeru-gold'}>
+                          {item.name}
+                        </span>
+                        
+                        {/* Gold underline animation */}
+                        {active && (
+                          <motion.div 
+                            className="absolute left-1/2 -bottom-2 h-0.5 bg-kaeru-gold"
+                            initial={{ width: 0 }}
+                            animate={{ width: "100%", x: "-50%" }}
+                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                          />
+                        )}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+              
+              {/* Mobile Cart at bottom */}
+              <div className="p-8 flex justify-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.6 }}
+                >
+                  <CartIcon onClick={() => { toggleCart(); setIsOpen(false); }} />
+                </motion.div>
               </div>
             </div>
           </motion.div>

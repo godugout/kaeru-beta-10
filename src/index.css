@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap&preconnect=true&dns-prefetch=true');
 
 @tailwind base;
 @tailwind components;
@@ -8,6 +8,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
   }
 
   :root {
@@ -279,12 +280,31 @@
     outline-offset: 2px;
   }
 
-  /* Touch Target Sizing */
+  /* Touch Target Sizing - Ensure all interactive elements are 44px+ */
   @media (max-width: 768px) {
-    .info-tabs button {
+    .info-tabs button,
+    button,
+    a[role="button"],
+    input,
+    select,
+    textarea {
       min-width: 44px;
       min-height: 44px;
       touch-action: manipulation;
+    }
+    
+    /* Mobile-specific improvements */
+    .mobile-full-width {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+    }
+    
+    .mobile-stack {
+      flex-direction: column;
+    }
+    
+    .mobile-hide {
+      display: none;
     }
   }
 

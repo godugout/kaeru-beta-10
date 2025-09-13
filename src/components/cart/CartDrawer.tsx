@@ -31,7 +31,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent 
         side="right" 
-        className="w-full sm:w-[400px] bg-kaeru-black/95 backdrop-blur-md border-l border-kaeru-gold/20 p-0 flex flex-col"
+        className="w-full sm:w-[400px] md:max-w-md bg-kaeru-black/95 backdrop-blur-md border-l border-kaeru-gold/20 p-0 flex flex-col mobile-full-width"
       >
         <SheetHeader className="p-6 pb-4 border-b border-white/10">
           <SheetTitle className="text-2xl font-serif text-kaeru-gold flex items-center justify-between">
@@ -98,7 +98,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
               <div className="space-y-3">
                 <Button 
                   asChild
-                  className="w-full bg-kaeru-gold text-kaeru-black hover:bg-kaeru-gold/90 font-semibold py-3 relative overflow-hidden group"
+                  className="w-full bg-kaeru-gold text-kaeru-black hover:bg-kaeru-gold/90 font-semibold py-3 relative overflow-hidden group min-h-[44px]"
                   onClick={onClose}
                 >
                   <Link to="/checkout">
@@ -109,7 +109,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                 
                 <button 
                   onClick={onClose}
-                  className="w-full text-center text-white/70 hover:text-kaeru-gold transition-colors text-sm"
+                  className="w-full text-center text-white/70 hover:text-kaeru-gold transition-colors text-sm min-h-[44px]"
                 >
                   Continue Shopping
                 </button>
@@ -130,7 +130,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                     asChild
                     variant="outline"
                     size="sm"
-                    className="border-kaeru-gold/50 text-kaeru-gold hover:bg-kaeru-gold/10"
+                    className="border-kaeru-gold/50 text-kaeru-gold hover:bg-kaeru-gold/10 min-h-[44px]"
                     onClick={onClose}
                   >
                     <Link to="/ritual-builder">
