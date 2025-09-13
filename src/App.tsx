@@ -24,6 +24,7 @@ import Science from "@/pages/Science";
 import RitualBuilder from "@/pages/RitualBuilder";
 import Rituals from "@/pages/Rituals";
 import Journal from "@/pages/Journal";
+import JournalArticlePage from "@/components/journal/JournalArticlePage";
 import JapaneseArtElements from "@/pages/JapaneseArtElements";
 import JapaneseDesignSystem from "@/pages/JapaneseDesignSystem";
 
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
   {
     path: "/journal",
     element: <Journal />,
+  },
+  {
+    path: "/journal/:slug", 
+    element: <JournalArticlePage />,
   },
   {
     path: "/japanese-art",

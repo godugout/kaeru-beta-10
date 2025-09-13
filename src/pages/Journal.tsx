@@ -2,47 +2,43 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronLeft, ArrowRight } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import KaeruLogo from "@/components/hero/KaeruLogo";
 import { JournalArticleCard } from "@/components/journal/JournalArticleCard";
 import { journalArticles } from "@/data/journalArticles";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Journal = () => {
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeFilter, setActiveFilter] = useState("All");
   
-  // Filter articles based on active tab
-  const filteredArticles = activeTab === "all" 
+  const filters = ["All", "Recovery", "Calm", "Energy", "Origins", "Rituals"];
+  
+  const filteredArticles = activeFilter === "All" 
     ? journalArticles 
-    : journalArticles.filter(article => article.category.toLowerCase() === activeTab.toLowerCase());
+    : journalArticles.filter(article => article.category === activeFilter);
 
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="px-6 py-4 flex justify-between items-center">
+      <header className="px-6 py-6 flex justify-between items-center border-b border-white/10">
         <Link to="/" className="text-gold hover:text-gold/80 transition-colors flex items-center gap-2">
           <ChevronLeft size={18} />
           <span>Return home</span>
         </Link>
-        <div className="w-20 h-20 flex items-center justify-center">
+        <div className="w-16 h-16 flex items-center justify-center">
           <KaeruLogo />
         </div>
-        <div className="w-24"></div> {/* Empty space for balance */}
+        <div className="w-24"></div>
       </header>
       
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Journal Introduction */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="text-sm tracking-widest text-gold mb-4">DISCIPLINE JOURNAL</h2>
-          <h3 className="text-3xl md:text-5xl font-serif text-white mb-8">The Cycle of Return</h3>
-          <p className="text-white/70 mb-6 leading-relaxed">
-            In Japanese philosophy, the concept of <span className="text-gold italic">kaeru</span> (帰る) means "to return" or "to come back." 
-            Our journal explores this eternal cycle of return—to origins, to balance, to self—through the lens of ancient wisdom 
-            and modern science.
-          </p>
-          <p className="text-white/70 leading-relaxed">
-            Each article offers wisdom, practices, and reflections to guide you on your path of return.
+        <div className="text-center mb-16 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-serif text-white mb-6">Discipline Journal</h1>
+          <p className="text-xl md:text-2xl text-gold mb-8 font-light">Wisdom for the returning warrior</p>
+          <p className="text-white/70 text-lg leading-relaxed">
+            Ancient knowledge meets modern science in our collection of articles designed to enhance your wellness journey. 
+            Each piece offers practical wisdom for those walking the path of disciplined return to wholeness.
           </p>
         </div>
 
@@ -66,19 +62,23 @@ const Journal = () => {
           </div>
         </div>
 
-        {/* Journal Categories */}
-        <div className="mb-12">
-          <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
-            <div className="flex justify-center">
-              <TabsList className="bg-black/50 border border-white/10">
-                <TabsTrigger value="all" className="text-sm">All</TabsTrigger>
-                <TabsTrigger value="harmony" className="text-sm">Harmony</TabsTrigger>
-                <TabsTrigger value="clarity" className="text-sm">Clarity</TabsTrigger>
-                <TabsTrigger value="strength" className="text-sm">Strength</TabsTrigger>
-                <TabsTrigger value="roots" className="text-sm">Roots</TabsTrigger>
-              </TabsList>
-            </div>
-          </Tabs>
+        {/* Filter Pills */}
+        <div className="mb-12 flex justify-center">
+          <div className="flex flex-wrap gap-3 bg-black/30 p-2 rounded-lg border border-white/10">
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                  activeFilter === filter
+                    ? 'bg-gold text-black shadow-lg shadow-gold/25'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Journal Articles Grid */}
