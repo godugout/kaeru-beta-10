@@ -14,6 +14,7 @@ import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { motion } from "framer-motion";
 import GoldenPondRipple from "@/components/easter-egg/GoldenPondRipple";
 import FrogAmbientMode from "@/components/ambient/FrogAmbientMode";
+import SEOHead from "@/components/seo/SEOHead";
 
 const Index = () => {
   const [introComplete, setIntroComplete] = useState(false);
@@ -45,7 +46,13 @@ const Index = () => {
   };
 
   return (
-    <div className="relative bg-black min-h-screen">
+    <>
+      <SEOHead 
+        title="KAERU CBD - Premium Japanese-Inspired Wellness"
+        description="Transform your wellness journey with KAERU's premium CBD products inspired by Japanese mythology. Shop our ritual-based collection of oils, balms, and serums."
+        keywords="CBD, wellness, Japanese, mythology, ritual, skincare, premium, organic, transformation"
+      />
+      <div className="relative bg-black min-h-screen">
       {/* Loading Screen */}
       {!introComplete && <LoadingScreen onComplete={handleIntroComplete} />}
       
@@ -86,6 +93,7 @@ const Index = () => {
         <Footer />
       </motion.div>
     </div>
+    </>
   );
 };
 

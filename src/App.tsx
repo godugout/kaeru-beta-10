@@ -9,9 +9,12 @@ import { LocalizationProvider } from "@/contexts/LocalizationContext";
 import { ABTestingProvider } from "@/components/testing/ABTestingProvider";
 import ErrorBoundary from "@/components/errors/ErrorBoundary";
 import DemoModeBanner from "@/components/testing/DemoModeBanner";
+import RecentPurchaseNotification from "@/components/social/RecentPurchaseNotification";
+import AgeVerificationModal from "@/components/legal/AgeVerificationModal";
 import { initializePerformanceMonitoring, trackCartEvents } from "@/utils/performance";
 import { trackPageView } from "@/utils/analytics";
 import { isDemoMode } from "@/data/mockData";
+import { HelmetProvider } from "react-helmet-async";
 import "./App.css";
 
 // Lazy import pages for code splitting
@@ -44,6 +47,10 @@ const JapaneseDesignSystem = lazy(() => import("@/pages/JapaneseDesignSystem"));
 const FrogAmbassadorDemo = lazy(() => import("@/pages/FrogAmbassadorDemo"));
 const SeasonalDemo = lazy(() => import("@/pages/SeasonalDemo"));
 const JapaneseLocalizationDemo = lazy(() => import("@/pages/JapaneseLocalizationDemo"));
+const AnalyticsDashboard = lazy(() => import("@/pages/AnalyticsDashboard"));
+const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
+const ShippingPolicy = lazy(() => import("@/pages/ShippingPolicy"));
 
 // Loading component
 const PageLoader = () => (
@@ -152,7 +159,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/analytics-dashboard",
-    element: withErrorBoundary(lazy(() => import("@/pages/AnalyticsDashboard")), "AnalyticsDashboard"),
+    element: withErrorBoundary(AnalyticsDashboard, "AnalyticsDashboard"),
+  },
+  {
+    path: "/privacy-policy",
+    element: withErrorBoundary(PrivacyPolicy, "PrivacyPolicy"),
+  },
+  {
+    path: "/terms",
+    element: withErrorBoundary(TermsOfService, "TermsOfService"),
+  },
+  {
+    path: "/shipping",
+    element: withErrorBoundary(ShippingPolicy, "ShippingPolicy"),
   },
   {
     path: "*",
@@ -188,6 +207,8 @@ const AppWithProviders = () => {
       {showDemoBanner && (
         <DemoModeBanner onDismiss={() => setShowDemoBanner(false)} />
       )}
+      <AgeVerificationModal />
+      <RecentPurchaseNotification />
       <div className={showDemoBanner ? 'pt-16' : ''}>
         <RouterProvider router={router} />
       </div>
@@ -200,18 +221,20 @@ const App = () => {
   return (
     <StrictMode>
       <ErrorBoundary name="App Root">
-        <LocalizationProvider>
-          <ABTestingProvider>
-            <CartProvider>
-              <WishlistProvider>
-                <FrogEasterEggProvider>
-                  <AppWithProviders />
-                  <Toaster />
-                </FrogEasterEggProvider>
-              </WishlistProvider>
-            </CartProvider>
-          </ABTestingProvider>
-        </LocalizationProvider>
+        <HelmetProvider>
+          <LocalizationProvider>
+            <ABTestingProvider>
+              <CartProvider>
+                <WishlistProvider>
+                  <FrogEasterEggProvider>
+                    <AppWithProviders />
+                    <Toaster />
+                  </FrogEasterEggProvider>
+                </WishlistProvider>
+              </CartProvider>
+            </ABTestingProvider>
+          </LocalizationProvider>
+        </HelmetProvider>
       </ErrorBoundary>
     </StrictMode>
   );

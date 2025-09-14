@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and sensitive areas
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /account/
+Disallow: /api/
+
+# Allow search engines to access important pages
+Allow: /
+Allow: /products
+Allow: /ritual-builder
+Allow: /rituals
+Allow: /journal
+Allow: /origins
+Allow: /science
+Allow: /the-way
+Allow: /founder-story
+
+# Sitemap location
+Sitemap: https://kaeru-cbd.com/sitemap.xml

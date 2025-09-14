@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 import ShopLayout from "@/components/layouts/ShopLayout";
 import { MaContainer } from "@/components/ui/japanese/Layout";
 import { productData } from "@/data/productData";
+import SEOHead from "@/components/seo/SEOHead";
+import { trackViewItem } from "@/utils/analytics";
+import { useEffect } from "react";
 
 // Import enhanced components
 import EnhancedProductGallery from "@/components/product/EnhancedProductGallery";
@@ -20,7 +23,27 @@ const EnhancedProductDetail = () => {
   // Find the product based on the ID
   const product = productData.find(p => p.id === productId) || productData[0];
   
+  useEffect(() => {
+    // Track product view for analytics
+    trackViewItem(product.id, product.name, product.collection, product.price);
+  }, [product]);
+  
   return (
+    <>
+      <SEOHead 
+        title={`${product.name} - KAERU CBD`}
+        description={`${product.description} Premium CBD wellness product from KAERU's ${product.collection}.`}
+        keywords={`CBD, ${product.name}, ${product.collection}, wellness, Japanese, ritual`}
+        type="product"
+        productData={{
+          name: product.name,
+          price: product.price,
+          currency: "USD",
+          sku: product.sku || product.id,
+          brand: "KAERU CBD",
+          category: product.collection
+        }}
+      />
     <ShopLayout>
       <MaContainer className="py-12 md:py-16">
         {/* Breadcrumb */}
@@ -69,6 +92,7 @@ const EnhancedProductDetail = () => {
         />
       </MaContainer>
     </ShopLayout>
+    </>
   );
 };
 

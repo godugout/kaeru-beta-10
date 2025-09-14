@@ -29,8 +29,9 @@ const Footer = () => {
             <div className="text-white font-medium mb-4">SUPPORT</div>
             <ul className="space-y-2 text-white/50">
               <li><a href="#" className="hover:text-gold transition-colors duration-300">Contact Us</a></li>
-              <li><a href="#" className="hover:text-gold transition-colors duration-300">Shipping & Returns</a></li>
-              <li><a href="#" className="hover:text-gold transition-colors duration-300">FAQ</a></li>
+              <li><Link to="/shipping" className="hover:text-gold transition-colors duration-300">Shipping & Returns</Link></li>
+              <li><Link to="/privacy-policy" className="hover:text-gold transition-colors duration-300">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-gold transition-colors duration-300">Terms of Service</Link></li>
             </ul>
           </div>
           <div>

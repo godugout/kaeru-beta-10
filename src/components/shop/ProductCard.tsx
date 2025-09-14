@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Eye, ShoppingCart } from "lucide-react";
+import { ChevronRight, Eye, ShoppingCart, Star } from "lucide-react";
 import { JapaneseProse } from "@/components/ui/japanese/Typography";
 import { useOptimizedAnimation } from "@/hooks/useOptimizedAnimation";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,17 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
   const [showQuickView, setShowQuickView] = useState(false);
   const { addItem } = useCart();
   const { formatCurrency, t } = useLocalization();
+  
+  // Generate consistent rating between 4.7-5.0
+  const rating = 4.7 + (Math.abs(product.id.charCodeAt(0) + product.id.charCodeAt(1)) % 4) / 10;
+  const reviewCount = 23 + (Math.abs(product.id.charCodeAt(0)) % 87);
+  
+  // Check if Gold collection for bestseller badge
+  const isGoldCollection = product.collection === "Gold Collection";
+  
+  // Mock inventory (5-50 items)
+  const inventory = 5 + (Math.abs(product.id.charCodeAt(0)) % 46);
+  const lowStock = inventory <= 10;
   
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -58,6 +69,21 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
             loading={index < 3 ? "eager" : "lazy"}
             decoding="async"
           />
+          
+          {/* Badges */}
+          <div className="absolute top-3 left-3 space-y-2">
+            {isGoldCollection && (
+              <span className="bg-gold text-black px-2 py-1 text-xs font-medium rounded">
+                Bestseller
+              </span>
+            )}
+            {lowStock && (
+              <span className="bg-red-500 text-white px-2 py-1 text-xs font-medium rounded block">
+                Only {inventory} left
+              </span>
+            )}
+          </div>
+          
           <div className="absolute bottom-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
             <Button 
               variant="goldOutline" 
@@ -94,6 +120,28 @@ export const ProductCard = ({ product, index }: ProductCardProps) => {
           <h3 className="font-serif text-xl text-white mb-2">
             {product.name}
           </h3>
+          
+          {/* Rating */}
+          <div className="flex items-center mb-2 space-x-1">
+            <div className="flex items-center">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  size={12}
+                  className={`${
+                    i < Math.floor(rating) 
+                      ? 'text-gold fill-gold' 
+                      : i < rating 
+                      ? 'text-gold fill-gold opacity-50'
+                      : 'text-white/20'
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="text-white/60 text-xs">
+              {rating.toFixed(1)} ({reviewCount})
+            </span>
+          </div>
           
           {/* Japanese name and meaning */}
           {product.metadata?.japanese_name && product.metadata?.meaning && (
