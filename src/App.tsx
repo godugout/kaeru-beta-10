@@ -1,15 +1,22 @@
 
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { CartProvider } from "@/contexts/CartContext";
 import { WishlistProvider } from "@/contexts/WishlistContext";
 import { FrogEasterEggProvider } from "@/contexts/FrogEasterEggContext";
 import { LocalizationProvider } from "@/contexts/LocalizationContext";
+import { ABTestingProvider } from "@/components/testing/ABTestingProvider";
+import ErrorBoundary from "@/components/errors/ErrorBoundary";
+import DemoModeBanner from "@/components/testing/DemoModeBanner";
+import { initializePerformanceMonitoring, trackCartEvents } from "@/utils/performance";
+import { trackPageView } from "@/utils/analytics";
+import { isDemoMode } from "@/data/mockData";
 import "./App.css";
 
 // Lazy import pages for code splitting
 import { lazy, Suspense } from "react";
+import React from "react";
 import { Skeleton } from "@/components/ui/loading-skeleton";
 
 // Critical pages loaded immediately
@@ -52,91 +59,100 @@ const PageLoader = () => (
   </div>
 );
 
+// Wrap routes with error boundaries
+const withErrorBoundary = (Component: React.ComponentType, name: string) => (
+  <ErrorBoundary name={name}>
+    <Suspense fallback={<PageLoader />}>
+      <Component />
+    </Suspense>
+  </ErrorBoundary>
+);
+
 // Create router with routes to all pages
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Index />,
+    element: <ErrorBoundary name="Homepage"><Index /></ErrorBoundary>,
   },
   {
     path: "/the-way",
-    element: <Suspense fallback={<PageLoader />}><TheWay /></Suspense>,
+    element: withErrorBoundary(TheWay, "TheWay"),
   },
   {
     path: "/origins",
-    element: <Suspense fallback={<PageLoader />}><Origins /></Suspense>,
+    element: withErrorBoundary(Origins, "Origins"),
   },
   {
     path: "/origins/founders-story",
-    element: <Suspense fallback={<PageLoader />}><FounderStory /></Suspense>,
+    element: withErrorBoundary(FounderStory, "FounderStory"),
   },
   {
     path: "/founder-story-detail",
-    element: <Suspense fallback={<PageLoader />}><FoundersStoryDetail /></Suspense>,
+    element: withErrorBoundary(FoundersStoryDetail, "FoundersStoryDetail"),
   },
   {
     path: "/product/:productId",
-    element: <Suspense fallback={<PageLoader />}><EnhancedProductDetail /></Suspense>,
+    element: withErrorBoundary(EnhancedProductDetail, "ProductDetail"),
   },
   {
     path: "/enhanced-product/:productId",
-    element: <Suspense fallback={<PageLoader />}><EnhancedProductDetail /></Suspense>,
+    element: withErrorBoundary(EnhancedProductDetail, "EnhancedProductDetail"),
   },
   {
     path: "/products",
-    element: <Suspense fallback={<PageLoader />}><Products /></Suspense>,
+    element: withErrorBoundary(Products, "Products"),
   },
   {
     path: "/shop",
-    element: <Suspense fallback={<PageLoader />}><Shop /></Suspense>,
+    element: withErrorBoundary(Shop, "Shop"),
   },
   {
     path: "/checkout",
-    element: <Suspense fallback={<PageLoader />}><Checkout /></Suspense>,
+    element: withErrorBoundary(Checkout, "Checkout"),
   },
   {
     path: "/library",
-    element: <Suspense fallback={<PageLoader />}><Library /></Suspense>,
+    element: withErrorBoundary(Library, "Library"),
   },
   {
     path: "/science",
-    element: <Suspense fallback={<PageLoader />}><Science /></Suspense>,
+    element: withErrorBoundary(Science, "Science"),
   },
   {
     path: "/ritual-builder",
-    element: <Suspense fallback={<PageLoader />}><RitualBuilder /></Suspense>,
+    element: withErrorBoundary(RitualBuilder, "RitualBuilder"),
   },
   {
     path: "/rituals",
-    element: <Suspense fallback={<PageLoader />}><Rituals /></Suspense>,
+    element: withErrorBoundary(Rituals, "Rituals"),
   },
   {
     path: "/journal",
-    element: <Suspense fallback={<PageLoader />}><Journal /></Suspense>,
+    element: withErrorBoundary(Journal, "Journal"),
   },
   {
     path: "/journal/:slug", 
-    element: <Suspense fallback={<PageLoader />}><JournalArticlePage /></Suspense>,
+    element: withErrorBoundary(JournalArticlePage, "JournalArticle"),
   },
   {
     path: "/japanese-art",
-    element: <Suspense fallback={<PageLoader />}><JapaneseArtElements /></Suspense>,
+    element: withErrorBoundary(JapaneseArtElements, "JapaneseArt"),
   },
   {
     path: "/japanese-design",
-    element: <Suspense fallback={<PageLoader />}><JapaneseDesignSystem /></Suspense>,
+    element: withErrorBoundary(JapaneseDesignSystem, "JapaneseDesign"),
   },
   {
     path: "/ambassador-demo",
-    element: <Suspense fallback={<PageLoader />}><FrogAmbassadorDemo /></Suspense>,
+    element: withErrorBoundary(FrogAmbassadorDemo, "AmbassadorDemo"),
   },
   {
     path: "/seasonal-demo",
-    element: <Suspense fallback={<PageLoader />}><SeasonalDemo /></Suspense>,
+    element: withErrorBoundary(SeasonalDemo, "SeasonalDemo"),
   },
   {
-    path: "/japanese-localization-demo",
-    element: <Suspense fallback={<PageLoader />}><JapaneseLocalizationDemo /></Suspense>,
+    path: "/analytics-dashboard",
+    element: withErrorBoundary(lazy(() => import("@/pages/AnalyticsDashboard")), "AnalyticsDashboard"),
   },
   {
     path: "*",
@@ -144,20 +160,59 @@ const router = createBrowserRouter([
   },
 ]);
 
+// App component with analytics and performance monitoring
+const AppWithProviders = () => {
+  const [showDemoBanner, setShowDemoBanner] = React.useState(isDemoMode());
+
+  useEffect(() => {
+    // Initialize performance monitoring
+    initializePerformanceMonitoring();
+    
+    // Track cart events for abandonment analysis
+    trackCartEvents();
+    
+    // Track initial page view
+    trackPageView(window.location.pathname);
+    
+    // Set up route change tracking
+    const handleRouteChange = () => {
+      trackPageView(window.location.pathname);
+    };
+    
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
+
+  return (
+    <>
+      {showDemoBanner && (
+        <DemoModeBanner onDismiss={() => setShowDemoBanner(false)} />
+      )}
+      <div className={showDemoBanner ? 'pt-16' : ''}>
+        <RouterProvider router={router} />
+      </div>
+    </>
+  );
+};
+
 // Main App component that provides the router and context
 const App = () => {
   return (
     <StrictMode>
-      <LocalizationProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <FrogEasterEggProvider>
-              <RouterProvider router={router} />
-              <Toaster />
-            </FrogEasterEggProvider>
-          </WishlistProvider>
-        </CartProvider>
-      </LocalizationProvider>
+      <ErrorBoundary name="App Root">
+        <LocalizationProvider>
+          <ABTestingProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <FrogEasterEggProvider>
+                  <AppWithProviders />
+                  <Toaster />
+                </FrogEasterEggProvider>
+              </WishlistProvider>
+            </CartProvider>
+          </ABTestingProvider>
+        </LocalizationProvider>
+      </ErrorBoundary>
     </StrictMode>
   );
 };
