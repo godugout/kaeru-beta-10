@@ -23,6 +23,47 @@ const RitualQuestion = ({ question, onAnswer }: RitualQuestionProps) => {
     }, 800);
   };
   
+  // Map option values to unique background images
+  const getBackgroundImage = (value: string): string => {
+    const backgrounds: Record<string, string> = {
+      // Nature elements
+      mountain: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Mountain peaks
+      river: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&q=80", // Flowing river
+      forest: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80", // Dense forest
+      field: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80", // Open field
+      
+      // Time of day
+      dawn: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=800&q=80", // Sunrise
+      day: "https://images.unsplash.com/photo-1601297183305-6df142704ea2?w=800&q=80", // Bright daylight
+      dusk: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913?w=800&q=80", // Sunset
+      night: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800&q=80", // Starry night
+      
+      // Elements
+      fire: "https://images.unsplash.com/photo-1525011268546-bf3f9b007f6a?w=800&q=80", // Fire/flames
+      water: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&q=80", // Water
+      earth: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80", // Earth/rocks
+      air: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80", // Sky/clouds
+      
+      // Five elements
+      wood: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80", // Growing plants
+      metal: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Metallic mountains
+      
+      // Balance elements
+      stillness: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Still mountain lake
+      movement: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&q=80", // Flowing water
+      structure: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80", // Forest structure
+      spontaneity: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80", // Open field
+      
+      // Qualities
+      persistence: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Mountains
+      adaptability: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&q=80", // Water
+      clarity: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=800&q=80", // Clear sky
+      compassion: "https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?w=800&q=80", // Soft nature
+    };
+    
+    return backgrounds[value] || "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80";
+  };
+  
   return (
     <div className="relative">
       {/* Question header */}
@@ -68,7 +109,10 @@ const RitualQuestion = ({ question, onAnswer }: RitualQuestionProps) => {
           >
             {/* Background image with gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-kaeru-jade/20 via-kaeru-moss/30 to-kaeru-black/90" />
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80')] bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
+            <div 
+              className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-500" 
+              style={{ backgroundImage: `url('${getBackgroundImage(option.value)}')` }}
+            />
             
             {/* Selection glow */}
             {selectedAnswer === option.value && (
