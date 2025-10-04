@@ -299,20 +299,7 @@ const RefinedIngredientsSection = ({ productName }: RefinedIngredientsSectionPro
           <p>Use arrow keys to navigate • Enter/Space to flip cards • Tab through content • Click synergy button to see connections</p>
         </motion.div>
 
-        {/* The Five Transformations Philosophy */}
-        <motion.div 
-          className="mt-20 text-center"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.8 }}
-        >
-          <h4 className="text-2xl font-serif text-gold mb-6">The Five Transformations</h4>
-          <p className="text-white/70 max-w-3xl mx-auto text-lg leading-relaxed">
-            Following the <em>Godai</em> (Five Elements), our formulations balance Earth's stability, 
-            Water's flow, Fire's energy, Wind's movement, and Void's infinite potential. 
-            Each ingredient awakens through specific ritual, creating harmony that transcends individual properties.
-          </p>
-        </motion.div>
+        {/* The Five Transformations Philosophy - Removed to focus on single product launch */}
       </div>
 
       {/* Sound System */}
