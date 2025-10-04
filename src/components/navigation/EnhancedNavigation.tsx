@@ -33,8 +33,8 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
     { name: "SHOP", href: "/shop", id: "shop", priority: "primary" },
     { name: "THE WAY", href: "/the-way", id: "the-way", priority: "secondary" },
     { name: "RITUALS", href: "/rituals", id: "rituals", priority: "primary" },
-    { name: "LIBRARY", href: "/library", id: "library", priority: "secondary" },
-    { name: "ORIGINS", href: "/origins", id: "origins", priority: "secondary" }
+    // { name: "LIBRARY", href: "/library", id: "library", priority: "secondary" },
+    // { name: "ORIGINS", href: "/origins", id: "origins", priority: "secondary" }
   ];
   
   const isActive = (path: string) => {

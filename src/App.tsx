@@ -85,14 +85,15 @@ const router = createBrowserRouter([
     path: "/the-way",
     element: withErrorBoundary(TheWay, "TheWay"),
   },
-  {
-    path: "/origins",
-    element: withErrorBoundary(Origins, "Origins"),
-  },
-  {
-    path: "/origins/founders-story",
-    element: withErrorBoundary(FounderStory, "FounderStory"),
-  },
+  // Temporarily disabled - focusing on Shop, The Way, and Rituals
+  // {
+  //   path: "/origins",
+  //   element: withErrorBoundary(Origins, "Origins"),
+  // },
+  // {
+  //   path: "/origins/founders-story",
+  //   element: withErrorBoundary(FounderStory, "FounderStory"),
+  // },
   {
     path: "/founder-story-detail",
     element: withErrorBoundary(FoundersStoryDetail, "FoundersStoryDetail"),
@@ -117,10 +118,11 @@ const router = createBrowserRouter([
     path: "/checkout",
     element: withErrorBoundary(Checkout, "Checkout"),
   },
-  {
-    path: "/library",
-    element: withErrorBoundary(Library, "Library"),
-  },
+  // Temporarily disabled - focusing on Shop, The Way, and Rituals
+  // {
+  //   path: "/library",
+  //   element: withErrorBoundary(Library, "Library"),
+  // },
   {
     path: "/science",
     element: withErrorBoundary(Science, "Science"),
