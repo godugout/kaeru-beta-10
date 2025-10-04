@@ -4,6 +4,64 @@ import { strengthRitualSteps, calmRitualSteps } from '@/data/ritualSteps';
 
 export const productData: Product[] = [
   {
+    id: "frog-balm",
+    name: "Kaeru Balm (蛙膏) - Frog Balm",
+    name_english: "Renewal & Return Balm",
+    subtitle: "All-Natural Healing Balm",
+    type: "Multi-Purpose Healing Balm",
+    size: "2oz (60ml)",
+    price: 3500, // $35.00 in cents
+    currency: "USD",
+    category: "balm",
+    collection: "Foundation",
+    sku: "KRU-KB-BLM-002",
+    frog: "Kaeru - The Spirit of Return",
+    description: "In Japanese mythology, the frog (kaeru, 蛙) symbolizes renewal, transformation, and safe return. This all-natural balm embodies the spirit of kaeru—helping your skin return to its natural state of health, vitality, and radiant renewal.",
+    long_description: "Reflecting the natural cycles of life and the harmony between humanity and nature, the frog is revered as a bringer of good fortune and a messenger of rain and fertility. This balm embodies balance, healing, and the continual process of becoming whole again.",
+    imagePath: "/lovable-uploads/775b98a8-5a04-44fc-bc94-1e4a72b0517e.png",
+    altText: "Kaeru Balm in amber glass jar with golden frog emblem",
+    scent_profile: "Subtle menthol with warming botanicals",
+    packaging: "Amber glass jar with golden frog emblem lid",
+    inventory: 500,
+    featured: true,
+    ritualSteps: strengthRitualSteps,
+    sizes: [
+      { size: "2oz", price: 3500, sku: "KRU-KB-BLM-002" },
+      { size: "4oz", price: 5000, sku: "KRU-KB-BLM-004" }
+    ],
+    details: {
+      ingredients: [
+        "Ivory Shea Butter - deeply nourishing and restorative",
+        "Cold-Pressed Coconut Oil - natural antimicrobial properties",
+        "Golden Jojoba Oil - mimics skin's natural oils",
+        "Vitamin E - powerful antioxidant protection",
+        "Chili Seed Extract - warming circulation support",
+        "Premium CBD Isolate - natural balance and relief",
+        "Menthol Crystals - cooling comfort"
+      ],
+      usage: "Apply generously to clean skin. Massage gently until absorbed. Use daily or as needed for renewal and comfort.",
+      benefits: [
+        "Supports skin's natural renewal cycle",
+        "Warming and cooling dual sensation",
+        "Deep moisture and protection",
+        "Multi-purpose for face and body",
+        "All-natural, plant-based ingredients"
+      ],
+      effects: ["Renewing", "Balancing", "Healing"]
+    },
+    relatedProducts: ["kaifuku-cbd-balm", "ao-hikari-face-cream"],
+    metadata: {
+      japanese_name: "蛙膏",
+      meaning: "Frog Balm",
+      ritual_type: "daily_return",
+      all_natural: true,
+      handmade: true,
+      preservative_free: true
+    },
+    reviews: [],
+    rating: 5.0
+  },
+  {
     id: "ao-hikari-face-cream",
     name: "Ao Hikari (青光) - Blue Light",
     name_english: "Blue Bloom Face Cream",

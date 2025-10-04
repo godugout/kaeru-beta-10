@@ -47,7 +47,13 @@ export interface Product {
     synthetic_free?: boolean;
     therapeutic?: boolean;
     professional_grade?: boolean;
+    all_natural?: boolean;
   };
+  sizes?: Array<{
+    size: string;
+    price: number;
+    sku: string;
+  }>;
 }
 
 export interface ProductReview {

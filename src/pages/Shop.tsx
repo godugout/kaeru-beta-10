@@ -75,22 +75,44 @@ const Shop = () => {
             </div>
           </div>
           
-          {/* Kaeru Signature Collection - Enhanced */}
+          {/* Featured Product - Frog Balm */}
           <ScrollSection className="py-16">
             <div className="max-w-7xl mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="text-sm tracking-widest text-gold uppercase mb-2">KAERU SIGNATURE COLLECTION</h2>
+              <div className="text-center mb-12">
+                <h2 className="text-sm tracking-widest text-gold uppercase mb-2">NOW AVAILABLE</h2>
                 <h3 className="text-4xl md:text-6xl font-serif text-white mb-6">
-                  The Five Transformations
+                  Kaeru Balm
                 </h3>
                 <p className="text-white/70 max-w-3xl mx-auto text-lg">
-                  Each product represents a unique pathway to transformation, inspired by ancient wisdom and modern science.
+                  The spirit of renewal and return. Our foundational all-natural healing balm.
                 </p>
               </div>
               
-              {/* Unique Product Display */}
+              {/* Featured Frog Balm */}
+              {filteredProducts.filter(p => p.id === 'frog-balm').map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="max-w-4xl mx-auto mb-20"
+                >
+                  <ProductCard product={product} index={index} />
+                </motion.div>
+              ))}
+
+              {/* Coming Soon Products */}
+              <div className="text-center mb-12 mt-20">
+                <h3 className="text-3xl md:text-4xl font-serif text-white/60 mb-4">
+                  Coming Soon
+                </h3>
+                <p className="text-white/50 max-w-2xl mx-auto">
+                  More transformative products arriving soon. Enter your email to be notified when they launch.
+                </p>
+              </div>
+              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                {filteredProducts.map((product, index) => (
+                {filteredProducts.filter(p => p.id !== 'frog-balm').map((product, index) => (
                   <motion.div
                     key={product.id}
                     initial={{ opacity: 0, y: 30 }}
@@ -98,7 +120,7 @@ const Shop = () => {
                     transition={{ delay: index * 0.15, duration: 0.6 }}
                     className="group relative"
                   >
-                    <ProductCard product={product} index={index} />
+                    <ProductCard product={product} index={index} comingSoon={true} />
                   </motion.div>
                 ))}
               </div>
