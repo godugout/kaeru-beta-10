@@ -32,6 +32,10 @@ const Shop = () => {
       product.subtitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.collection.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    console.log('Total products:', productData.length);
+    console.log('Filtered products:', results.length);
+    console.log('Search term:', searchTerm);
+    console.log('Products after frog-balm filter:', results.filter(p => p.id !== 'frog-balm').length);
     setFilteredProducts(results);
   }, [searchTerm]);
 
