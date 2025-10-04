@@ -1,5 +1,3 @@
-
-import { supabase } from "./client";
 import { v4 as uuidv4 } from 'uuid';
 
 // Get or create visitor ID from local storage
@@ -16,15 +14,8 @@ const getVisitorId = (): string => {
 export const trackProductView = async (productId: string, productName: string) => {
   const visitorId = getVisitorId();
   try {
-    await supabase.from('analytics_events').insert({
-      visitor_id: visitorId,
-      event_type: 'product_view',
-      event_category: 'product',
-      event_label: productName,
-      event_data: { productId },
-      page_url: window.location.href
-    });
-    console.log(`Product view tracked: ${productName}`);
+    // TODO: Set up analytics_events table in database
+    console.log(`Product view tracked: ${productName}`, { visitorId, productId });
   } catch (error) {
     console.error('Error tracking product view:', error);
   }
@@ -34,15 +25,8 @@ export const trackProductView = async (productId: string, productName: string) =
 export const trackRitualView = async (ritualId: string, ritualName: string) => {
   const visitorId = getVisitorId();
   try {
-    await supabase.from('analytics_events').insert({
-      visitor_id: visitorId,
-      event_type: 'ritual_view',
-      event_category: 'ritual',
-      event_label: ritualName,
-      event_data: { ritualId },
-      page_url: window.location.href
-    });
-    console.log(`Ritual view tracked: ${ritualName}`);
+    // TODO: Set up analytics_events table in database
+    console.log(`Ritual view tracked: ${ritualName}`, { visitorId, ritualId });
   } catch (error) {
     console.error('Error tracking ritual view:', error);
   }
@@ -52,15 +36,8 @@ export const trackRitualView = async (ritualId: string, ritualName: string) => {
 export const trackProductInteraction = async (productId: string, productName: string, interactionType: string) => {
   const visitorId = getVisitorId();
   try {
-    await supabase.from('analytics_events').insert({
-      visitor_id: visitorId,
-      event_type: 'product_interaction',
-      event_category: 'interaction',
-      event_label: interactionType,
-      event_data: { productId, productName, interactionType },
-      page_url: window.location.href
-    });
-    console.log(`Product interaction tracked: ${interactionType} - ${productName}`);
+    // TODO: Set up analytics_events table in database
+    console.log(`Product interaction tracked: ${interactionType} - ${productName}`, { visitorId, productId });
   } catch (error) {
     console.error('Error tracking product interaction:', error);
   }

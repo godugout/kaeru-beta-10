@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import Footer from "@/components/ui/footer";
 import ProductShowcase from "@/components/sections/ProductShowcase";
@@ -8,10 +9,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import RitualPathQuiz from "@/components/ritual-builder/RitualPathQuiz";
-import SectionHero from "@/components/ui/SectionHero";
 import SeasonalThemeSelector from "@/components/seasonal/SeasonalThemeSelector";
 import { useSeasonalTheme } from "@/contexts/SeasonalThemeContext";
-import SeasonalHeroBackground from "@/components/seasonal/SeasonalHeroBackground";
 import FrogReturnsEasterEgg from "@/components/easter-egg/FrogReturnsEasterEgg";
 
 const Rituals = () => {
@@ -42,38 +41,41 @@ const Rituals = () => {
       
       <div className={`transition-opacity duration-1000 ${contentVisible ? 'opacity-100' : 'opacity-0'}`}>
         {/* Hero Section */}
-        <SeasonalHeroBackground className="py-32 text-center">
-          <SectionHero
-            title="RITUAL PRACTICES"
-            subtitle="Inspired by Japanese mindfulness and guided by nature's most transformative creatures, our rituals combine ancient wisdom with modern wellness science."
-            contentVisible={contentVisible}
-          />
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-kaeru-jade/5 to-black" />
           
-          {/* Season Selector */}
-          <div className="mt-12">
-            <h3 className="text-gold text-sm mb-4">EXPERIENCE BY SEASON</h3>
-            <SeasonalThemeSelector />
+          {/* Animated background pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-kaeru-gold/20 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-kaeru-moss/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
           </div>
-        </SeasonalHeroBackground>
+          
+          <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: contentVisible ? 1 : 0, y: contentVisible ? 0 : 30 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl text-kaeru-fog mb-8 tracking-tight">
+                Ritual<br />Practices
+              </h1>
+              <p className="text-xl md:text-2xl text-kaeru-fog/80 max-w-3xl mx-auto mb-12 leading-relaxed">
+                Inspired by Japanese mindfulness and guided by nature's most transformative creatures, 
+                our rituals combine ancient wisdom with modern wellness science.
+              </p>
+              
+              {/* Season Selector */}
+              <div className="mt-16">
+                <h3 className="text-kaeru-gold text-sm tracking-widest mb-6">EXPERIENCE BY SEASON</h3>
+                <SeasonalThemeSelector />
+              </div>
+            </motion.div>
+          </div>
+        </section>
         
         {/* New Ritual Path Quiz Section */}
         <RitualPathQuiz />
-        
-        {/* Ritual Builder CTA */}
-        <section className="py-16 bg-gray-900/40 backdrop-blur-sm">
-          <div className="max-w-5xl mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-serif text-gold mb-3">Discover Your Return Path</h2>
-            <p className="text-white/80 max-w-2xl mx-auto mb-8">
-              Every journey begins with understanding your true nature. Our ritual builder guides you 
-              to products that resonate with your essence and needs.
-            </p>
-            <Link to="/ritual-builder">
-              <Button className="bg-gold hover:bg-gold/80 text-black">
-                Begin Your Ritual <ArrowRight className="ml-2" size={16} />
-              </Button>
-            </Link>
-          </div>
-        </section>
         
         {/* Product Rituals Section */}
         <section className="py-24 bg-black">

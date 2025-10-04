@@ -65,20 +65,26 @@ const RitualPathQuiz = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-gray-900/30">
-      <JourneyBackground className="opacity-30" />
+    <section className="py-32 relative overflow-hidden bg-black">
+      {/* Subtle background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-kaeru-moss/5 to-black" />
       
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-sm tracking-widest text-gold mb-4">REGENERATIVE PATH</h2>
-          <h3 className="text-3xl md:text-4xl font-serif text-white mb-6">
-            Discover Your Nature
+      <div className="relative z-10 max-w-6xl mx-auto px-4">
+        <motion.div 
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-sm tracking-[0.3em] text-kaeru-gold mb-6 uppercase">REGENERATIVE PATH</h2>
+          <h3 className="font-serif text-5xl md:text-6xl lg:text-7xl text-kaeru-fog mb-8 tracking-tight">
+            Discover Your<br />Nature
           </h3>
-          <p className="text-white/80 max-w-2xl mx-auto">
+          <p className="text-xl text-kaeru-fog/70 max-w-3xl mx-auto leading-relaxed">
             Answer a few reflective prompts, and we'll guide you to a ritual and product 
             pairing that speaks to your current needs and rhythms.
           </p>
-        </div>
+        </motion.div>
 
         <AnimatePresence mode="wait">
           {!isCompleted ? (
