@@ -41,19 +41,6 @@ const EnhancedHeroSection = () => {
     >
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-kaeru-gold/10 via-transparent to-kaeru-jade/5" />
-      
-      {/* Floating Frog Silhouette */}
-      <motion.div
-        className="absolute w-16 h-16 pointer-events-none opacity-20"
-        style={{
-          left: useTransform(mouseX, [0, 1], ["10%", "90%"]),
-          top: useTransform(mouseY, [0, 1], ["10%", "90%"]),
-        }}
-      >
-        <svg viewBox="0 0 64 64" className="w-full h-full fill-kaeru-gold animate-breath">
-          <path d="M32 8c-8 0-16 4-16 12 0 4 2 8 4 10-4 2-8 6-8 12 0 8 8 16 20 16s20-8 20-16c0-6-4-10-8-12 2-2 4-6 4-10 0-8-8-12-16-12zm-8 16c-2 0-4-2-4-4s2-4 4-4 4 2 4 4-2 4-4 4zm16 0c-2 0-4-2-4-4s2-4 4-4 4 2 4 4-2 4-4 4z"/>
-        </svg>
-      </motion.div>
 
       {/* Main Content */}
       <div className="relative z-10 text-center">

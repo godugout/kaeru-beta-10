@@ -13,7 +13,6 @@ import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { motion } from "framer-motion";
 import GoldenPondRipple from "@/components/easter-egg/GoldenPondRipple";
-import FrogAmbientMode from "@/components/ambient/FrogAmbientMode";
 import SEOHead from "@/components/seo/SEOHead";
 
 const Index = () => {
@@ -58,9 +57,6 @@ const Index = () => {
       
       {/* Easter Egg Modal */}
       <FrogReturnsEasterEgg />
-      
-      {/* Ambient Mode */}
-      <FrogAmbientMode />
       
       {/* Main Content */}
       <motion.div 
