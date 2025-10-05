@@ -7,6 +7,7 @@ import { WishlistProvider } from "@/contexts/WishlistContext";
 import { FrogEasterEggProvider } from "@/contexts/FrogEasterEggContext";
 import { LocalizationProvider } from "@/contexts/LocalizationContext";
 import { ABTestingProvider } from "@/components/testing/ABTestingProvider";
+import { SeasonalThemeProvider } from "@/contexts/SeasonalThemeContext";
 import ErrorBoundary from "@/components/errors/ErrorBoundary";
 import RecentPurchaseNotification from "@/components/social/RecentPurchaseNotification";
 import AgeVerificationModal from "@/components/legal/AgeVerificationModal";
@@ -215,18 +216,20 @@ const App = () => {
     <StrictMode>
       <ErrorBoundary name="App Root">
         <HelmetProvider>
-          <LocalizationProvider>
-            <ABTestingProvider>
-              <CartProvider>
-                <WishlistProvider>
-                  <FrogEasterEggProvider>
-                    <AppWithProviders />
-                    <Toaster />
-                  </FrogEasterEggProvider>
-                </WishlistProvider>
-              </CartProvider>
-            </ABTestingProvider>
-          </LocalizationProvider>
+          <SeasonalThemeProvider>
+            <LocalizationProvider>
+              <ABTestingProvider>
+                <CartProvider>
+                  <WishlistProvider>
+                    <FrogEasterEggProvider>
+                      <AppWithProviders />
+                      <Toaster />
+                    </FrogEasterEggProvider>
+                  </WishlistProvider>
+                </CartProvider>
+              </ABTestingProvider>
+            </LocalizationProvider>
+          </SeasonalThemeProvider>
         </HelmetProvider>
       </ErrorBoundary>
     </StrictMode>
