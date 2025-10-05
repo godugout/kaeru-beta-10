@@ -38,15 +38,19 @@ Deno.serve(async (req) => {
     }
 
     // Get client IP and user agent
-    const ip_address = req.headers.get('x-forwarded-for') || 'unknown';
-    const user_agent = req.headers.get('user-agent') || 'unknown';
+    const forwardedFor = req.headers.get('x-forwarded-for');
+    // Extract first IP from comma-separated list (client IP is typically first)
+    const ip_address = forwardedFor ? forwardedFor.split(',')[0].trim() : null;
+    const user_agent = req.headers.get('user-agent') || null;
+
+    console.log('Processing submission:', { email, ip_address, user_agent, source_page });
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Insert or update the record
+    // Insert or update the record - prioritize saving email even if metadata fails
     const { data, error } = await supabase
       .from('ritual_access_requests')
       .upsert({
