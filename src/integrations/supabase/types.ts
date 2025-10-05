@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ritual_access_requests: {
+        Row: {
+          consented_to_marketing: boolean
+          consented_to_privacy: boolean
+          created_at: string
+          email: string
+          id: string
+          ip_address: unknown | null
+          source_page: string | null
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          consented_to_marketing?: boolean
+          consented_to_privacy?: boolean
+          created_at?: string
+          email: string
+          id?: string
+          ip_address?: unknown | null
+          source_page?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          consented_to_marketing?: boolean
+          consented_to_privacy?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          ip_address?: unknown | null
+          source_page?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

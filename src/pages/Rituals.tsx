@@ -12,15 +12,27 @@ import RitualPathQuiz from "@/components/ritual-builder/RitualPathQuiz";
 import SeasonalThemeSelector from "@/components/seasonal/SeasonalThemeSelector";
 import { useSeasonalTheme } from "@/contexts/SeasonalThemeContext";
 import FrogReturnsEasterEgg from "@/components/easter-egg/FrogReturnsEasterEgg";
+import RitualAccessGate from "@/components/ritual/RitualAccessGate";
 
 const Rituals = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [contentVisible, setContentVisible] = useState(false);
+  const [hasAccess, setHasAccess] = useState(false);
+  const [showAccessGate, setShowAccessGate] = useState(false);
   const { currentSeason, colors } = useSeasonalTheme();
   
   useEffect(() => {
-    // Make content visible after initial load
-    setContentVisible(true);
+    // Check if user has already been granted access
+    const accessGranted = localStorage.getItem('ritual_access_granted');
+    if (accessGranted === 'true') {
+      setHasAccess(true);
+      setContentVisible(true);
+    } else {
+      // Show access gate after a brief delay
+      setTimeout(() => {
+        setShowAccessGate(true);
+      }, 500);
+    }
     
     // Scroll event listener
     const handleScroll = () => {
@@ -31,6 +43,11 @@ const Rituals = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleAccessGranted = () => {
+    setHasAccess(true);
+    setContentVisible(true);
+  };
+
   return (
     <div className="bg-black min-h-screen">
       {/* Navigation */}
@@ -38,6 +55,13 @@ const Rituals = () => {
       
       {/* Easter Egg Component */}
       <FrogReturnsEasterEgg />
+      
+      {/* Access Gate */}
+      <RitualAccessGate 
+        isOpen={showAccessGate && !hasAccess}
+        onClose={() => setShowAccessGate(false)}
+        onSuccess={handleAccessGranted}
+      />
       
       <div className={`transition-opacity duration-1000 ${contentVisible ? 'opacity-100' : 'opacity-0'}`}>
         {/* Hero Section */}

@@ -62,7 +62,7 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
         </WaterRipple>
 
         {/* Desktop Navigation with improved visual hierarchy */}
-        <WaterRipple className="hidden md:flex space-x-8">
+        <WaterRipple className="hidden md:flex items-center space-x-8">
           {navItems.map((item) => {
             const active = isActive(item.href);
             const isPrimary = item.priority === "primary";
@@ -71,17 +71,18 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
               <Link
                 key={item.name}
                 to={item.href}
-                className={`relative inline-block text-sm tracking-widest transition-colors duration-300 ${
+                className={`relative text-sm tracking-widest transition-colors duration-300 ${
                   isPrimary ? 'font-medium' : 'font-normal'
                 } ${
                   active ? 'text-gold' : 'text-white hover:text-gold'
-                } group`}
+                } group pb-1`}
+                style={{ display: 'inline-block' }}
               >
-                <span className="inline-block">{item.name}</span>
+                {item.name}
                 
                 {/* Gold ink underline animation for active items */}
                 <motion.div 
-                  className={`absolute left-0 -bottom-1 h-px bg-gold ${isPrimary ? 'w-full' : 'w-3/4'}`}
+                  className={`absolute left-0 bottom-0 h-px bg-gold pointer-events-none ${isPrimary ? 'w-full' : 'w-3/4'}`}
                   initial={{ scaleX: 0, originX: 0 }}
                   animate={{ 
                     scaleX: active ? 1 : 0,
@@ -89,14 +90,14 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
                   }}
                   transition={{ 
                     duration: 0.4, 
-                    ease: [0.22, 1, 0.36, 1] // Custom cubic-bezier for ink flow effect
+                    ease: [0.22, 1, 0.36, 1]
                   }}
                 />
                 
                 {/* Hover animation (only when not active) */}
                 {!active && (
                   <motion.div 
-                    className={`absolute left-0 -bottom-1 h-px bg-gold/60 ${isPrimary ? 'w-full' : 'w-3/4'}`}
+                    className={`absolute left-0 bottom-0 h-px bg-gold/60 pointer-events-none ${isPrimary ? 'w-full' : 'w-3/4'}`}
                     initial={{ scaleX: 0, originX: 0 }}
                     whileHover={{ scaleX: 1 }}
                     transition={{
