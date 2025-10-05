@@ -8,12 +8,10 @@ import { FrogEasterEggProvider } from "@/contexts/FrogEasterEggContext";
 import { LocalizationProvider } from "@/contexts/LocalizationContext";
 import { ABTestingProvider } from "@/components/testing/ABTestingProvider";
 import ErrorBoundary from "@/components/errors/ErrorBoundary";
-import DemoModeBanner from "@/components/testing/DemoModeBanner";
 import RecentPurchaseNotification from "@/components/social/RecentPurchaseNotification";
 import AgeVerificationModal from "@/components/legal/AgeVerificationModal";
 import { initializePerformanceMonitoring, trackCartEvents } from "@/utils/performance";
 import { trackPageView } from "@/utils/analytics";
-import { isDemoMode } from "@/data/mockData";
 import { HelmetProvider } from "react-helmet-async";
 import "./App.css";
 
@@ -183,8 +181,6 @@ const router = createBrowserRouter([
 
 // App component with analytics and performance monitoring
 const AppWithProviders = () => {
-  const [showDemoBanner, setShowDemoBanner] = React.useState(isDemoMode());
-
   useEffect(() => {
     // Initialize performance monitoring
     initializePerformanceMonitoring();
@@ -206,14 +202,9 @@ const AppWithProviders = () => {
 
   return (
     <>
-      {showDemoBanner && (
-        <DemoModeBanner onDismiss={() => setShowDemoBanner(false)} />
-      )}
       <AgeVerificationModal />
       <RecentPurchaseNotification />
-      <div className={showDemoBanner ? 'pt-16' : ''}>
-        <RouterProvider router={router} />
-      </div>
+      <RouterProvider router={router} />
     </>
   );
 };
