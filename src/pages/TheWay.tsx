@@ -117,9 +117,9 @@ const TheWay = () => {
             </Link>
           </motion.div>
 
-          {/* Scroll Indicator */}
+          {/* Scroll Indicator - Fixed to viewport bottom */}
           <motion.div 
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 0.5 }}

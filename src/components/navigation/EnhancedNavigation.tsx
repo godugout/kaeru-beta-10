@@ -71,17 +71,17 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
               <Link
                 key={item.name}
                 to={item.href}
-                className={`relative text-sm tracking-widest transition-colors duration-300 ${
+                className={`relative inline-block text-sm tracking-widest transition-colors duration-300 ${
                   isPrimary ? 'font-medium' : 'font-normal'
                 } ${
                   active ? 'text-gold' : 'text-white hover:text-gold'
                 } group`}
               >
-                <span>{item.name}</span>
+                <span className="inline-block">{item.name}</span>
                 
                 {/* Gold ink underline animation for active items */}
                 <motion.div 
-                  className={`absolute left-0 bottom-0 h-px bg-gold ${isPrimary ? 'w-full' : 'w-3/4'}`}
+                  className={`absolute left-0 -bottom-1 h-px bg-gold ${isPrimary ? 'w-full' : 'w-3/4'}`}
                   initial={{ scaleX: 0, originX: 0 }}
                   animate={{ 
                     scaleX: active ? 1 : 0,
@@ -96,7 +96,7 @@ const EnhancedNavigation = ({ scrollPosition = 0 }: EnhancedNavigationProps) => 
                 {/* Hover animation (only when not active) */}
                 {!active && (
                   <motion.div 
-                    className={`absolute left-0 bottom-0 h-px bg-gold/60 ${isPrimary ? 'w-full' : 'w-3/4'}`}
+                    className={`absolute left-0 -bottom-1 h-px bg-gold/60 ${isPrimary ? 'w-full' : 'w-3/4'}`}
                     initial={{ scaleX: 0, originX: 0 }}
                     whileHover={{ scaleX: 1 }}
                     transition={{
