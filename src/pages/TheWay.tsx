@@ -16,6 +16,9 @@ const TheWay = () => {
   
   const kanjiOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const englishOpacity = useTransform(scrollYProgress, [0.2, 0.5], [0, 1]);
+  
+  // Fade out scroll indicator as user scrolls
+  const scrollIndicatorOpacity = scrollPosition > 200 ? 0 : 1 - (scrollPosition / 200);
 
   const principles = [
     {
@@ -119,10 +122,11 @@ const TheWay = () => {
 
           {/* Scroll Indicator - Fixed to viewport bottom */}
           <motion.div 
-            className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+            className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20 pointer-events-none"
+            style={{ opacity: scrollIndicatorOpacity }}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 0.5 }}
+            animate={{ opacity: scrollPosition === 0 ? 1 : scrollIndicatorOpacity }}
+            transition={{ duration: 0.3 }}
           >
             <div className="flex flex-col items-center space-y-2">
               <span className="text-kaeru-fog/60 text-xs tracking-widest">SCROLL</span>
